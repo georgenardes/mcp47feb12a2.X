@@ -4540,6 +4540,8 @@ void I2C_Nack();
 
 
 void I2C_Init() {
+    ADCON1 = 0x0F;
+
 
     TRISC3 = 1;
     TRISC4 = 1;
@@ -4601,9 +4603,6 @@ char I2C_Write(unsigned char data) {
 
 char I2C_Stop() {
 
-    I2C_Ready();
-
-
     PEN = 1;
 
 
@@ -4635,6 +4634,7 @@ char I2C_Read(char flag) {
         I2C_Ack();
     else
         I2C_Nack();
+
     I2C_Ready();
 
     return (buffer);

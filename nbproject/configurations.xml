@@ -6,6 +6,7 @@
                    projectFiles="true">
       <itemPath>config.h</itemPath>
       <itemPath>i2c_util.h</itemPath>
+      <itemPath>DAC_util.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerScript"
                    displayName="Linker Files"
@@ -16,6 +17,7 @@
                    projectFiles="true">
       <itemPath>main.c</itemPath>
       <itemPath>i2c_util.c</itemPath>
+      <itemPath>DAC_util.c</itemPath>
     </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
@@ -142,6 +144,9 @@
         <property key="program-the-device-with-default-config-words" value="true"/>
         <property key="remove-unused-sections" value="true"/>
       </HI-TECH-LINK>
+      <VSMViewerPlatformTool>
+        <property key="design.file" value="mcp47feb12a2.pdsprj"/>
+      </VSMViewerPlatformTool>
       <XC8-CO>
         <property key="coverage-enable" value=""/>
       </XC8-CO>

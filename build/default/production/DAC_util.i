@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "DAC_util.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,15 +6,22 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
+# 1 "DAC_util.c" 2
+# 1 "./DAC_util.h" 1
+# 11 "./DAC_util.h"
+const unsigned char DAC_SLAVE_ADDRESS = 0x62;
 
+void DAC_Init();
 
+char DAC_Start();
 
+char DAC_Write(unsigned short data);
 
+char DAC_Read(char flag);
+# 1 "DAC_util.c" 2
 
-
-
-
+# 1 "./i2c_util.h" 1
+# 11 "./i2c_util.h"
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 1 3
 # 18 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 3
 extern const char __xc8_OPTIM_SPEED;
@@ -4520,14 +4527,12 @@ extern __attribute__((nonreentrant)) void _delaywdt(unsigned long);
 #pragma intrinsic(_delay3)
 extern __attribute__((nonreentrant)) void _delay3(unsigned char);
 # 32 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.10\\pic\\include\\xc.h" 2 3
-# 9 "main.c" 2
+# 11 "./i2c_util.h" 2
 
 # 1 "./config.h" 1
 # 12 "./config.h"
 #pragma config MCLRE = ON, WDT = OFF, OSC = HS
-# 10 "main.c" 2
-
-# 1 "./i2c_util.h" 1
+# 12 "./i2c_util.h" 2
 # 31 "./i2c_util.h"
 void I2C_Init();
 
@@ -4544,51 +4549,24 @@ char I2C_Read(char flag);
 void I2C_Ack();
 
 void I2C_Nack();
-# 11 "main.c" 2
-
-# 1 "./DAC_util.h" 1
-# 11 "./DAC_util.h"
-const unsigned char DAC_SLAVE_ADDRESS = 0x62;
-
-void DAC_Init();
-
-char DAC_Start();
-
-char DAC_Write(unsigned short data);
-
-char DAC_Read(char flag);
-# 12 "main.c" 2
+# 2 "DAC_util.c" 2
 
 
-void main(void) {
-    I2C_Init();
+void DAC_Init(){
 
-    DAC_Init();
+    TRISC5 = 0;
 
-    unsigned short i = 0;
-    signed char j = 4;
+    I2C_Start(DAC_SLAVE_ADDRESS<<1);
+}
 
-    while(1) {
-        DAC_Start();
-        DAC_Write(i);
+char DAC_Start(){
 
-        i = i+j;
+    return I2C_Write(0x00);
+}
 
-        if(i < 4){
-            j = 4;
-            i = 0;
-        }
-
-        if(i > 1023){
-            j = -4;
-            i = 1023;
-        }
-
-
-        __nop();
-
-        _delay((unsigned long)((2)*(16000000/4000.0)));
-    }
-
-    return;
+char DAC_Write(unsigned short data){
+    char result = 0;
+    result = result | I2C_Write((unsigned char)(data>>8));
+    result = result |I2C_Write(data);
+    return result;
 }

@@ -1,6 +1,8 @@
 #include "i2c_util.h"
 
 void I2C_Init() {
+    ADCON1 = 0x0F;
+    
     /* Set up I2C lines by setting as input */            
     TRISC3 = 1; 
     TRISC4 = 1;
@@ -60,10 +62,7 @@ char I2C_Write(unsigned char data) {
         return 2;
 }
 
-char I2C_Stop() {
-    /* I2C Bus Ready */
-    I2C_Ready();
-    
+char I2C_Stop() {       
     /* Stop communication*/
     PEN = 1; 
     
@@ -96,6 +95,7 @@ char I2C_Read(char flag) {
         I2C_Ack();
     else
         I2C_Nack();
+    
     I2C_Ready();
     
     return (buffer);

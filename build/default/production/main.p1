@@ -476,8 +476,8 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 26:         i = i+j;
 [e = _i -> + -> _i `ui -> -> _j `i `ui `us ]
 "28
-[; ;main.c: 28:         if(i < 4){
-[e $ ! < -> _i `ui -> -> 4 `i `ui 285  ]
+[; ;main.c: 28:         if(i < 0){
+[e $ ! < -> _i `ui -> -> 0 `i `ui 285  ]
 {
 "29
 [; ;main.c: 29:             j = 4;
