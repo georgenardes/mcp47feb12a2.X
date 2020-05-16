@@ -13,7 +13,7 @@
 
 
 /* declaração de defines */
-#define BIT_RATE 39
+#define BIT_RATE 39         // clock = FOSC/(4 * (SSPADD + 1))
 
 
 /* declaração de funcões aqui */
