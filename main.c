@@ -19,13 +19,12 @@ void main(void) {
     
     while(1) {
         DAC_Init(); 
-        DAC_Start(0x00,0x00);
+        DAC_Start(0x00,0x00); //first adress, command write
         DAC_Write(i);
         I2C_Stop();
-        __delay_ms(5);
         
         DAC_Init();
-        DAC_Start(0x01,0x00);
+        DAC_Start(0x01,0x00); //second adress, command write
         DAC_Write(k);
         I2C_Stop();
         
@@ -51,10 +50,7 @@ void main(void) {
             i = 1023;
         } 
          
-        
-        Nop();
-        
-        __delay_ms(5);
+        __delay_ms(1);
     }
     
     return;    

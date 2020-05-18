@@ -24,8 +24,20 @@ void DAC_Init();
  */
 char DAC_Start(unsigned char adress, unsigned char command);
 
+/*
+@Description: Inicialização
+
+ * manda escrever um dado para a conversão
+  
+ */
 char DAC_Write(unsigned short data);
- 
+
+/*
+@Description: Inicialização
+
+ * manda ler um dado da conversor
+  
+ */
 char DAC_Read(char flag);
 
 

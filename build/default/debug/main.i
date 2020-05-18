@@ -4571,7 +4571,7 @@ void main(void) {
         DAC_Start(0x00,0x00);
         DAC_Write(i);
         I2C_Stop();
-        _delay((unsigned long)((5)*(16000000/4000.0)));
+
 
         DAC_Init();
         DAC_Start(0x01,0x00);
@@ -4600,10 +4600,7 @@ void main(void) {
             i = 1023;
         }
 
-
-        __nop();
-
-        _delay((unsigned long)((5)*(16000000/4000.0)));
+        _delay((unsigned long)((1)*(16000000/4000.0)));
     }
 
     return;

@@ -19,9 +19,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "187 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18.h
 [v __delay `JF2518 ~T0 @X0 0 e ]
 [p i __delay ]
-"50
-[v ___nop `(v ~T0 @X0 0 ef ]
-[p i ___nop ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f4520.h
 [; ;C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f4520.h: 54: __asm("PORTA equ 0F80h");
 [; <" PORTA equ 0F80h ;# ">
@@ -482,9 +479,6 @@ Version 4.0 HI-TECH Software Intermediate Code
 "24
 [; ;main.c: 24:         I2C_Stop();
 [e ( _I2C_Stop ..  ]
-"25
-[; ;main.c: 25:         _delay((unsigned long)((5)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "27
 [; ;main.c: 27:         DAC_Init();
 [e ( _DAC_Init ..  ]
@@ -559,22 +553,19 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 52:         }
 }
 [e :U 288 ]
+"54
+[; ;main.c: 54:         _delay((unsigned long)((1)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
 "55
-[; ;main.c: 55:         __nop();
-[e ( ___nop ..  ]
-"57
-[; ;main.c: 57:         _delay((unsigned long)((5)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 5 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"58
-[; ;main.c: 58:     }
+[; ;main.c: 55:     }
 }
 [e :U 282 ]
 [e $U 283  ]
 [e :U 284 ]
-"60
-[; ;main.c: 60:     return;
+"57
+[; ;main.c: 57:     return;
 [e $UE 281  ]
-"61
-[; ;main.c: 61: }
+"58
+[; ;main.c: 58: }
 [e :UE 281 ]
 }
