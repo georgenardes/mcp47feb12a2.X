@@ -13,27 +13,38 @@
 
 void main(void) {
     I2C_Init();
-            
-    unsigned short i = 0;
-    signed char j = 4;
+
+    unsigned short i = 0, k = 1023;
+    signed char j = 4, j2 = 4;
     
     while(1) {
-        DAC_Init();
-        DAC_Start(0x00);
+        DAC_Init(); 
+        DAC_Start(0x00,0x00);
         DAC_Write(i);
         I2C_Stop();
+        __delay_ms(5);
         
         DAC_Init();
-        DAC_Start(0x01);
-        DAC_Write(i+2);
+        DAC_Start(0x01,0x00);
+        DAC_Write(k);
         I2C_Stop();
         
         i = i+j;
-        
-        if(i < 4){
+        k = k + j2;
+        if(i < 4 ){
             j = 4;
             i = 0;
         }
+        if(k < 4){
+            j2 = 4;
+            k = 0;
+        }
+        
+        if(k > 1023 ){
+            j2 = -4;
+            k = 1023;
+        }
+        
         
         if(i > 1023){
             j = -4; 
@@ -41,9 +52,9 @@ void main(void) {
         } 
          
         
-        //Nop();
+        Nop();
         
-        __delay_ms(1000);
+        __delay_ms(5);
     }
     
     return;    

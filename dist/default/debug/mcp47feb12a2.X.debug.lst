@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.10 build 88905656 
-                                                                                               Mon May 18 11:43:31 2020
+                                                                                               Mon May 18 18:22:36 2020
 
 Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1 
      1                           	processor	18F4520
@@ -96,22 +96,22 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
     82  000602  00                 	db	0	; dummy byte at the end
     83  0000                     
     84                           	psect	cinit
-    85  00076A                     __pcinit:
+    85  0007EA                     __pcinit:
     86                           	opt callstack 0
-    87  00076A                     start_initialization:
+    87  0007EA                     start_initialization:
     88                           	opt callstack 0
-    89  00076A                     __initialization:
+    89  0007EA                     __initialization:
     90                           	opt callstack 0
-    91  00076A                     end_of_initialization:
+    91  0007EA                     end_of_initialization:
     92                           	opt callstack 0
-    93  00076A                     __end_of__initialization:
+    93  0007EA                     __end_of__initialization:
     94                           	opt callstack 0
-    95  00076A  0E00               	movlw	low (__Lsmallconst shr (0+16))
-    96  00076C  6EF8               	movwf	tblptru,c
-    97  00076E  0E06               	movlw	high __Lsmallconst
-    98  000770  6EF7               	movwf	tblptrh,c
-    99  000772  0100               	movlb	0
-   100  000774  EF02  F003         	goto	_main	;jump to C main() function
+    95  0007EA  0E00               	movlw	low (__Lsmallconst shr (0+16))
+    96  0007EC  6EF8               	movwf	tblptru,c
+    97  0007EE  0E06               	movlw	high __Lsmallconst
+    98  0007F0  6EF7               	movwf	tblptrh,c
+    99  0007F2  0100               	movlb	0
+   100  0007F4  EF02  F003         	goto	_main	;jump to C main() function
    101                           
    102                           	psect	cstackCOMRAM
    103  000001                     __pcstackCOMRAM:
@@ -123,697 +123,797 @@ Microchip MPLAB XC8 C Compiler v2.10 (Free license) build 20190730164152 Og1
    109  000001                     	ds	1
    110  000002                     I2C_Start@slave_write_address:
    111                           	opt callstack 0
-   112  000002                     DAC_Start@endereco:
+   112  000002                     DAC_Start@command:
    113                           	opt callstack 0
    114  000002                     DAC_Write@data:
    115                           	opt callstack 0
    116                           
    117                           ; 2 bytes @ 0x1
    118  000002                     	ds	1
-   119  000003                     
-   120                           ; 1 bytes @ 0x2
-   121  000003                     	ds	1
-   122  000004                     DAC_Write@result:
-   123                           	opt callstack 0
-   124                           
-   125                           ; 1 bytes @ 0x3
-   126  000004                     	ds	1
-   127  000005                     ??_main:
-   128                           
-   129                           ; 1 bytes @ 0x4
-   130  000005                     	ds	2
-   131  000007                     main@j:
-   132                           	opt callstack 0
-   133                           
-   134                           ; 1 bytes @ 0x6
-   135  000007                     	ds	1
-   136  000008                     main@i:
-   137                           	opt callstack 0
-   138                           
-   139                           ; 2 bytes @ 0x7
-   140  000008                     	ds	2
+   119  000003                     ??_DAC_Start:
+   120                           
+   121                           ; 1 bytes @ 0x2
+   122  000003                     	ds	1
+   123  000004                     DAC_Start@adress:
+   124                           	opt callstack 0
+   125  000004                     DAC_Write@result:
+   126                           	opt callstack 0
+   127                           
+   128                           ; 1 bytes @ 0x3
+   129  000004                     	ds	1
+   130  000005                     DAC_Start@variable:
+   131                           	opt callstack 0
+   132                           
+   133                           ; 1 bytes @ 0x4
+   134  000005                     	ds	1
+   135  000006                     ??_main:
+   136                           
+   137                           ; 1 bytes @ 0x5
+   138  000006                     	ds	1
+   139  000007                     main@j:
+   140                           	opt callstack 0
    141                           
-   142 ;;
-   143 ;;Main: autosize = 0, tempsize = 2, incstack = 0, save=0
-   144 ;;
-   145 ;; *************** function _main *****************
-   146 ;; Defined at:
-   147 ;;		line 14 in file "main.c"
-   148 ;; Parameters:    Size  Location     Type
-   149 ;;		None
-   150 ;; Auto vars:     Size  Location     Type
-   151 ;;  i               2    7[COMRAM] unsigned short 
-   152 ;;  j               1    6[COMRAM] char 
-   153 ;; Return value:  Size  Location     Type
-   154 ;;                  1    wreg      void 
-   155 ;; Registers used:
-   156 ;;		wreg, status,2, status,0, cstack
-   157 ;; Tracked objects:
-   158 ;;		On entry : 0/0
-   159 ;;		On exit  : 0/0
-   160 ;;		Unchanged: 0/0
-   161 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   162 ;;      Params:         0       0       0       0       0       0       0
-   163 ;;      Locals:         3       0       0       0       0       0       0
-   164 ;;      Temps:          2       0       0       0       0       0       0
-   165 ;;      Totals:         5       0       0       0       0       0       0
-   166 ;;Total ram usage:        5 bytes
-   167 ;; Hardware stack levels required when called:    4
-   168 ;; This function calls:
-   169 ;;		_DAC_Init
-   170 ;;		_DAC_Start
-   171 ;;		_DAC_Write
-   172 ;;		_I2C_Init
-   173 ;;		_I2C_Stop
-   174 ;; This function is called by:
-   175 ;;		Startup code after reset
-   176 ;; This function uses a non-reentrant model
-   177 ;;
-   178                           
-   179                           	psect	text0
-   180  000604                     __ptext0:
-   181                           	opt callstack 0
-   182  000604                     _main:
-   183                           	opt callstack 27
-   184  000604                     
-   185                           ;main.c: 15:     I2C_Init();
-   186  000604  EC85  F003         	call	_I2C_Init	;wreg free
-   187  000608                     
-   188                           ;main.c: 17:     unsigned short i = 0;
-   189  000608  0E00               	movlw	0
-   190  00060A  6E09               	movwf	(main@i+1)^0,c
-   191  00060C  0E00               	movlw	0
-   192  00060E  6E08               	movwf	main@i^0,c
-   193  000610                     
-   194                           ;main.c: 18:     signed char j = 4;
-   195  000610  0E04               	movlw	4
-   196  000612  6E07               	movwf	main@j^0,c
-   197  000614                     l19:
+   142                           ; 1 bytes @ 0x6
+   143  000007                     	ds	1
+   144  000008                     main@j2:
+   145                           	opt callstack 0
+   146                           
+   147                           ; 1 bytes @ 0x7
+   148  000008                     	ds	1
+   149  000009                     main@i:
+   150                           	opt callstack 0
+   151                           
+   152                           ; 2 bytes @ 0x8
+   153  000009                     	ds	2
+   154  00000B                     main@k:
+   155                           	opt callstack 0
+   156                           
+   157                           ; 2 bytes @ 0xA
+   158  00000B                     	ds	2
+   159                           
+   160 ;;
+   161 ;;Main: autosize = 0, tempsize = 1, incstack = 0, save=0
+   162 ;;
+   163 ;; *************** function _main *****************
+   164 ;; Defined at:
+   165 ;;		line 14 in file "main.c"
+   166 ;; Parameters:    Size  Location     Type
+   167 ;;		None
+   168 ;; Auto vars:     Size  Location     Type
+   169 ;;  k               2   10[COMRAM] unsigned short 
+   170 ;;  i               2    8[COMRAM] unsigned short 
+   171 ;;  j2              1    7[COMRAM] char 
+   172 ;;  j               1    6[COMRAM] char 
+   173 ;; Return value:  Size  Location     Type
+   174 ;;                  1    wreg      void 
+   175 ;; Registers used:
+   176 ;;		wreg, status,2, status,0, cstack
+   177 ;; Tracked objects:
+   178 ;;		On entry : 0/0
+   179 ;;		On exit  : 0/0
+   180 ;;		Unchanged: 0/0
+   181 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   182 ;;      Params:         0       0       0       0       0       0       0
+   183 ;;      Locals:         6       0       0       0       0       0       0
+   184 ;;      Temps:          1       0       0       0       0       0       0
+   185 ;;      Totals:         7       0       0       0       0       0       0
+   186 ;;Total ram usage:        7 bytes
+   187 ;; Hardware stack levels required when called:    4
+   188 ;; This function calls:
+   189 ;;		_DAC_Init
+   190 ;;		_DAC_Start
+   191 ;;		_DAC_Write
+   192 ;;		_I2C_Init
+   193 ;;		_I2C_Stop
+   194 ;; This function is called by:
+   195 ;;		Startup code after reset
+   196 ;; This function uses a non-reentrant model
+   197 ;;
    198                           
-   199                           ;main.c: 21:         DAC_Init();
-   200  000614  ECC1  F003         	call	_DAC_Init	;wreg free
-   201                           
-   202                           ;main.c: 22:         DAC_Start(0x00);
-   203  000618  0E00               	movlw	0
-   204  00061A  ECBC  F003         	call	_DAC_Start
-   205  00061E                     
-   206                           ;main.c: 23:         DAC_Write(i);
-   207  00061E  C008  F002         	movff	main@i,DAC_Write@data
-   208  000622  C009  F003         	movff	main@i+1,DAC_Write@data+1
-   209  000626  EC94  F003         	call	_DAC_Write	;wreg free
-   210  00062A                     
-   211                           ;main.c: 24:         I2C_Stop();
-   212  00062A  ECA1  F003         	call	_I2C_Stop	;wreg free
-   213  00062E                     
-   214                           ;main.c: 26:         DAC_Init();
-   215  00062E  ECC1  F003         	call	_DAC_Init	;wreg free
-   216  000632                     
-   217                           ;main.c: 27:         DAC_Start(0x01);
-   218  000632  0E01               	movlw	1
-   219  000634  ECBC  F003         	call	_DAC_Start
-   220  000638                     
-   221                           ;main.c: 28:         DAC_Write(i+2);
-   222  000638  0E02               	movlw	2
-   223  00063A  2408               	addwf	main@i^0,w,c
-   224  00063C  6E02               	movwf	DAC_Write@data^0,c
-   225  00063E  0E00               	movlw	0
-   226  000640  2009               	addwfc	(main@i+1)^0,w,c
-   227  000642  6E03               	movwf	(DAC_Write@data+1)^0,c
-   228  000644  EC94  F003         	call	_DAC_Write	;wreg free
-   229  000648                     
-   230                           ;main.c: 29:         I2C_Stop();
-   231  000648  ECA1  F003         	call	_I2C_Stop	;wreg free
-   232  00064C                     
-   233                           ;main.c: 31:         i = i+j;
-   234  00064C  5008               	movf	main@i^0,w,c
-   235  00064E  2407               	addwf	main@j^0,w,c
-   236  000650  6E08               	movwf	main@i^0,c
-   237  000652  0E00               	movlw	0
-   238  000654  BE07               	btfsc	main@j^0,7,c
-   239  000656  0EFF               	movlw	255
-   240  000658  2009               	addwfc	(main@i+1)^0,w,c
-   241  00065A  6E09               	movwf	(main@i+1)^0,c
-   242  00065C                     
-   243                           ;main.c: 33:         if(i < 4){
-   244  00065C  5009               	movf	(main@i+1)^0,w,c
-   245  00065E  E107               	bnz	u121
-   246  000660  0E04               	movlw	4
-   247  000662  5C08               	subwf	main@i^0,w,c
-   248  000664  B0D8               	btfsc	status,0,c
-   249  000666  EF37  F003         	goto	u121
-   250  00066A  EF39  F003         	goto	u120
-   251  00066E                     u121:
-   252  00066E  EF3F  F003         	goto	l941
-   253  000672                     u120:
-   254  000672                     
-   255                           ;main.c: 34:             j = 4;
-   256  000672  0E04               	movlw	4
-   257  000674  6E07               	movwf	main@j^0,c
-   258                           
-   259                           ;main.c: 35:             i = 0;
-   260  000676  0E00               	movlw	0
-   261  000678  6E09               	movwf	(main@i+1)^0,c
-   262  00067A  0E00               	movlw	0
-   263  00067C  6E08               	movwf	main@i^0,c
-   264  00067E                     l941:
-   265                           
-   266                           ;main.c: 38:         if(i > 1023){
-   267  00067E  0E04               	movlw	4
-   268  000680  5C09               	subwf	(main@i+1)^0,w,c
-   269  000682  A0D8               	btfss	status,0,c
-   270  000684  EF46  F003         	goto	u131
-   271  000688  EF48  F003         	goto	u130
-   272  00068C                     u131:
-   273  00068C  EF4D  F003         	goto	l945
-   274  000690                     u130:
-   275  000690                     
-   276                           ;main.c: 39:             j = -4;
-   277  000690  0EFC               	movlw	252
-   278  000692  6E07               	movwf	main@j^0,c
-   279                           
-   280                           ;main.c: 40:             i = 1023;
-   281  000694  0E03               	movlw	3
-   282  000696  6E09               	movwf	(main@i+1)^0,c
-   283  000698  6808               	setf	main@i^0,c
-   284  00069A                     l945:
-   285                           
-   286                           ;main.c: 46:         _delay((unsigned long)((1000)*(16000000/4000.0)));
-   287  00069A  0E15               	movlw	21
-   288  00069C  6E06               	movwf	(??_main+1)^0,c
-   289  00069E  0E4B               	movlw	75
-   290  0006A0  6E05               	movwf	??_main^0,c
-   291  0006A2  0EBE               	movlw	190
-   292  0006A4                     u147:
-   293  0006A4  2EE8               	decfsz	wreg,f,c
-   294  0006A6  D7FE               	bra	u147
-   295  0006A8  2E05               	decfsz	??_main^0,f,c
-   296  0006AA  D7FC               	bra	u147
-   297  0006AC  2E06               	decfsz	(??_main+1)^0,f,c
-   298  0006AE  D7FA               	bra	u147
-   299  0006B0  D000               	nop2	
-   300  0006B2  EF0A  F003         	goto	l19
-   301  0006B6  EF00  F000         	goto	start
-   302  0006BA                     __end_of_main:
-   303                           	opt callstack 0
+   199                           	psect	text0
+   200  000604                     __ptext0:
+   201                           	opt callstack 0
+   202  000604                     _main:
+   203                           	opt callstack 27
+   204  000604                     
+   205                           ;main.c: 15:     I2C_Init();
+   206  000604  ECB8  F003         	call	_I2C_Init	;wreg free
+   207  000608                     
+   208                           ;main.c: 17:     unsigned short i = 0, k = 1023;
+   209  000608  0E00               	movlw	0
+   210  00060A  6E0A               	movwf	(main@i+1)^0,c
+   211  00060C  0E00               	movlw	0
+   212  00060E  6E09               	movwf	main@i^0,c
+   213  000610  0E03               	movlw	3
+   214  000612  6E0C               	movwf	(main@k+1)^0,c
+   215  000614  680B               	setf	main@k^0,c
+   216  000616                     
+   217                           ;main.c: 18:     signed char j = 4, j2 = 4;
+   218  000616  0E04               	movlw	4
+   219  000618  6E07               	movwf	main@j^0,c
+   220  00061A  0E04               	movlw	4
+   221  00061C  6E08               	movwf	main@j2^0,c
+   222  00061E                     l21:
+   223                           
+   224                           ;main.c: 21:         DAC_Init();
+   225  00061E  ECFC  F003         	call	_DAC_Init	;wreg free
+   226  000622                     
+   227                           ;main.c: 22:         DAC_Start(0x00,0x00);
+   228  000622  0E00               	movlw	0
+   229  000624  6E02               	movwf	DAC_Start@command^0,c
+   230  000626  0E00               	movlw	0
+   231  000628  ECD4  F003         	call	_DAC_Start
+   232  00062C                     
+   233                           ;main.c: 23:         DAC_Write(i);
+   234  00062C  C009  F002         	movff	main@i,DAC_Write@data
+   235  000630  C00A  F003         	movff	main@i+1,DAC_Write@data+1
+   236  000634  ECC7  F003         	call	_DAC_Write	;wreg free
+   237  000638                     
+   238                           ;main.c: 24:         I2C_Stop();
+   239  000638  ECE1  F003         	call	_I2C_Stop	;wreg free
+   240  00063C                     
+   241                           ;main.c: 25:         _delay((unsigned long)((5)*(16000000/4000.0)));
+   242  00063C  0E1A               	movlw	26
+   243  00063E  6E06               	movwf	??_main^0,c
+   244  000640  0EF8               	movlw	248
+   245  000642                     u187:
+   246  000642  2EE8               	decfsz	wreg,f,c
+   247  000644  D7FE               	bra	u187
+   248  000646  2E06               	decfsz	??_main^0,f,c
+   249  000648  D7FC               	bra	u187
+   250  00064A  D000               	nop2	
+   251  00064C                     
+   252                           ;main.c: 27:         DAC_Init();
+   253  00064C  ECFC  F003         	call	_DAC_Init	;wreg free
+   254  000650                     
+   255                           ;main.c: 28:         DAC_Start(0x01,0x00);
+   256  000650  0E00               	movlw	0
+   257  000652  6E02               	movwf	DAC_Start@command^0,c
+   258  000654  0E01               	movlw	1
+   259  000656  ECD4  F003         	call	_DAC_Start
+   260  00065A                     
+   261                           ;main.c: 29:         DAC_Write(k);
+   262  00065A  C00B  F002         	movff	main@k,DAC_Write@data
+   263  00065E  C00C  F003         	movff	main@k+1,DAC_Write@data+1
+   264  000662  ECC7  F003         	call	_DAC_Write	;wreg free
+   265  000666                     
+   266                           ;main.c: 30:         I2C_Stop();
+   267  000666  ECE1  F003         	call	_I2C_Stop	;wreg free
+   268  00066A                     
+   269                           ;main.c: 32:         i = i+j;
+   270  00066A  5009               	movf	main@i^0,w,c
+   271  00066C  2407               	addwf	main@j^0,w,c
+   272  00066E  6E09               	movwf	main@i^0,c
+   273  000670  0E00               	movlw	0
+   274  000672  BE07               	btfsc	main@j^0,7,c
+   275  000674  0EFF               	movlw	255
+   276  000676  200A               	addwfc	(main@i+1)^0,w,c
+   277  000678  6E0A               	movwf	(main@i+1)^0,c
+   278  00067A                     
+   279                           ;main.c: 33:         k = k + j2;
+   280  00067A  500B               	movf	main@k^0,w,c
+   281  00067C  2408               	addwf	main@j2^0,w,c
+   282  00067E  6E0B               	movwf	main@k^0,c
+   283  000680  0E00               	movlw	0
+   284  000682  BE08               	btfsc	main@j2^0,7,c
+   285  000684  0EFF               	movlw	255
+   286  000686  200C               	addwfc	(main@k+1)^0,w,c
+   287  000688  6E0C               	movwf	(main@k+1)^0,c
+   288  00068A                     
+   289                           ;main.c: 34:         if(i < 4 ){
+   290  00068A  500A               	movf	(main@i+1)^0,w,c
+   291  00068C  E107               	bnz	u141
+   292  00068E  0E04               	movlw	4
+   293  000690  5C09               	subwf	main@i^0,w,c
+   294  000692  B0D8               	btfsc	status,0,c
+   295  000694  EF4E  F003         	goto	u141
+   296  000698  EF50  F003         	goto	u140
+   297  00069C                     u141:
+   298  00069C  EF56  F003         	goto	l987
+   299  0006A0                     u140:
+   300  0006A0                     
+   301                           ;main.c: 35:             j = 4;
+   302  0006A0  0E04               	movlw	4
+   303  0006A2  6E07               	movwf	main@j^0,c
    304                           
-   305 ;; *************** function _I2C_Stop *****************
-   306 ;; Defined at:
-   307 ;;		line 65 in file "i2c_util.c"
-   308 ;; Parameters:    Size  Location     Type
-   309 ;;		None
-   310 ;; Auto vars:     Size  Location     Type
-   311 ;;		None
-   312 ;; Return value:  Size  Location     Type
-   313 ;;                  1    wreg      unsigned char 
-   314 ;; Registers used:
-   315 ;;		wreg
-   316 ;; Tracked objects:
-   317 ;;		On entry : 0/0
-   318 ;;		On exit  : 0/0
-   319 ;;		Unchanged: 0/0
-   320 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   321 ;;      Params:         0       0       0       0       0       0       0
-   322 ;;      Locals:         0       0       0       0       0       0       0
-   323 ;;      Temps:          0       0       0       0       0       0       0
-   324 ;;      Totals:         0       0       0       0       0       0       0
-   325 ;;Total ram usage:        0 bytes
-   326 ;; Hardware stack levels used:    1
-   327 ;; This function calls:
-   328 ;;		Nothing
-   329 ;; This function is called by:
-   330 ;;		_main
-   331 ;; This function uses a non-reentrant model
-   332 ;;
-   333                           
-   334                           	psect	text1
-   335  000742                     __ptext1:
-   336                           	opt callstack 0
-   337  000742                     _I2C_Stop:
-   338                           	opt callstack 30
-   339  000742                     
-   340                           ;i2c_util.c: 67:     PEN = 1;
-   341  000742  84C5               	bsf	4037,2,c	;volatile
-   342  000744                     l88:
-   343  000744  B4C5               	btfsc	4037,2,c	;volatile
-   344  000746  EFA7  F003         	goto	u51
-   345  00074A  EFA9  F003         	goto	u50
-   346  00074E                     u51:
-   347  00074E  EFA2  F003         	goto	l88
-   348  000752                     u50:
-   349  000752                     
-   350                           ;i2c_util.c: 73:     SSPIF = 0;
-   351  000752  969E               	bcf	3998,3,c	;volatile
-   352                           
-   353                           ;i2c_util.c: 76:     if (!SSPSTATbits.P)
-   354  000754  50C7               	movf	199,w,c	;volatile
-   355  000756  0012               	return		;funcret
-   356  000758                     __end_of_I2C_Stop:
-   357                           	opt callstack 0
-   358                           
-   359 ;; *************** function _I2C_Init *****************
-   360 ;; Defined at:
-   361 ;;		line 3 in file "i2c_util.c"
-   362 ;; Parameters:    Size  Location     Type
-   363 ;;		None
-   364 ;; Auto vars:     Size  Location     Type
-   365 ;;		None
-   366 ;; Return value:  Size  Location     Type
-   367 ;;                  1    wreg      void 
-   368 ;; Registers used:
-   369 ;;		wreg, status,2
-   370 ;; Tracked objects:
-   371 ;;		On entry : 0/0
-   372 ;;		On exit  : 0/0
-   373 ;;		Unchanged: 0/0
-   374 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   375 ;;      Params:         0       0       0       0       0       0       0
-   376 ;;      Locals:         0       0       0       0       0       0       0
-   377 ;;      Temps:          0       0       0       0       0       0       0
-   378 ;;      Totals:         0       0       0       0       0       0       0
-   379 ;;Total ram usage:        0 bytes
-   380 ;; Hardware stack levels used:    1
-   381 ;; This function calls:
-   382 ;;		Nothing
-   383 ;; This function is called by:
-   384 ;;		_main
-   385 ;; This function uses a non-reentrant model
-   386 ;;
-   387                           
-   388                           	psect	text2
-   389  00070A                     __ptext2:
-   390                           	opt callstack 0
-   391  00070A                     _I2C_Init:
-   392                           	opt callstack 30
-   393  00070A                     
-   394                           ;i2c_util.c: 4:     ADCON1 = 0x0F;
-   395  00070A  0E0F               	movlw	15
-   396  00070C  6EC1               	movwf	193,c	;volatile
-   397  00070E                     
-   398                           ;i2c_util.c: 7:     TRISC3 = 1;
-   399  00070E  8694               	bsf	3988,3,c	;volatile
-   400  000710                     
-   401                           ;i2c_util.c: 8:     TRISC4 = 1;
-   402  000710  8894               	bsf	3988,4,c	;volatile
-   403                           
-   404                           ;i2c_util.c: 11:     SSPSTAT = 0x80;
-   405  000712  0E80               	movlw	128
-   406  000714  6EC7               	movwf	199,c	;volatile
-   407                           
-   408                           ;i2c_util.c: 14:     SSPCON1 = 0x28;
-   409  000716  0E28               	movlw	40
-   410  000718  6EC6               	movwf	198,c	;volatile
-   411                           
-   412                           ;i2c_util.c: 15:     SSPCON2 = 0x00;
-   413  00071A  0E00               	movlw	0
-   414  00071C  6EC5               	movwf	197,c	;volatile
-   415                           
-   416                           ;i2c_util.c: 18:     SSPADD = 39;
-   417  00071E  0E27               	movlw	39
-   418  000720  6EC8               	movwf	200,c	;volatile
-   419  000722                     
-   420                           ;i2c_util.c: 21:     SSPIE = 1;
-   421  000722  869D               	bsf	3997,3,c	;volatile
-   422  000724                     
-   423                           ;i2c_util.c: 22:     SSPIF = 0;
-   424  000724  969E               	bcf	3998,3,c	;volatile
-   425  000726  0012               	return		;funcret
-   426  000728                     __end_of_I2C_Init:
-   427                           	opt callstack 0
-   428                           
-   429 ;; *************** function _DAC_Write *****************
-   430 ;; Defined at:
-   431 ;;		line 15 in file "DAC_util.c"
-   432 ;; Parameters:    Size  Location     Type
-   433 ;;  data            2    1[COMRAM] unsigned short 
-   434 ;; Auto vars:     Size  Location     Type
-   435 ;;  result          1    3[COMRAM] unsigned char 
-   436 ;; Return value:  Size  Location     Type
-   437 ;;                  1    wreg      unsigned char 
-   438 ;; Registers used:
-   439 ;;		wreg, status,2, status,0, cstack
-   440 ;; Tracked objects:
-   441 ;;		On entry : 0/0
-   442 ;;		On exit  : 0/0
-   443 ;;		Unchanged: 0/0
-   444 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   445 ;;      Params:         2       0       0       0       0       0       0
-   446 ;;      Locals:         1       0       0       0       0       0       0
-   447 ;;      Temps:          0       0       0       0       0       0       0
-   448 ;;      Totals:         3       0       0       0       0       0       0
-   449 ;;Total ram usage:        3 bytes
-   450 ;; Hardware stack levels used:    1
-   451 ;; Hardware stack levels required when called:    2
-   452 ;; This function calls:
-   453 ;;		_I2C_Write
-   454 ;; This function is called by:
-   455 ;;		_main
-   456 ;; This function uses a non-reentrant model
-   457 ;;
-   458                           
-   459                           	psect	text3
-   460  000728                     __ptext3:
-   461                           	opt callstack 0
-   462  000728                     _DAC_Write:
-   463                           	opt callstack 28
-   464  000728                     
-   465                           ;DAC_util.c: 16:     char result = 0;
-   466  000728  0E00               	movlw	0
-   467  00072A  6E04               	movwf	DAC_Write@result^0,c
-   468  00072C                     
-   469                           ;DAC_util.c: 17:     result = result | I2C_Write((unsigned char)(data>>8));
-   470  00072C  5003               	movf	(DAC_Write@data+1)^0,w,c
-   471  00072E  EC74  F003         	call	_I2C_Write
-   472  000732  1004               	iorwf	DAC_Write@result^0,w,c
-   473  000734  6E04               	movwf	DAC_Write@result^0,c
-   474  000736                     
-   475                           ;DAC_util.c: 18:     result = result |I2C_Write(data);
-   476  000736  5002               	movf	DAC_Write@data^0,w,c
-   477  000738  EC74  F003         	call	_I2C_Write
-   478  00073C  1004               	iorwf	DAC_Write@result^0,w,c
-   479  00073E  6E04               	movwf	DAC_Write@result^0,c
-   480  000740  0012               	return		;funcret
-   481  000742                     __end_of_DAC_Write:
-   482                           	opt callstack 0
-   483                           
-   484 ;; *************** function _DAC_Start *****************
-   485 ;; Defined at:
-   486 ;;		line 11 in file "DAC_util.c"
-   487 ;; Parameters:    Size  Location     Type
-   488 ;;  endereco        1    wreg     unsigned char 
-   489 ;; Auto vars:     Size  Location     Type
-   490 ;;  endereco        1    1[COMRAM] unsigned char 
-   491 ;; Return value:  Size  Location     Type
-   492 ;;                  1    wreg      unsigned char 
-   493 ;; Registers used:
-   494 ;;		wreg, status,2, cstack
-   495 ;; Tracked objects:
-   496 ;;		On entry : 0/0
-   497 ;;		On exit  : 0/0
-   498 ;;		Unchanged: 0/0
-   499 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   500 ;;      Params:         0       0       0       0       0       0       0
-   501 ;;      Locals:         1       0       0       0       0       0       0
-   502 ;;      Temps:          0       0       0       0       0       0       0
-   503 ;;      Totals:         1       0       0       0       0       0       0
-   504 ;;Total ram usage:        1 bytes
-   505 ;; Hardware stack levels used:    1
-   506 ;; Hardware stack levels required when called:    2
-   507 ;; This function calls:
-   508 ;;		_I2C_Write
-   509 ;; This function is called by:
-   510 ;;		_main
-   511 ;; This function uses a non-reentrant model
-   512 ;;
-   513                           
-   514                           	psect	text4
-   515  000778                     __ptext4:
-   516                           	opt callstack 0
-   517  000778                     _DAC_Start:
-   518                           	opt callstack 28
-   519                           
-   520                           ;incstack = 0
-   521                           ;DAC_Start@endereco stored from wreg
-   522  000778  6E02               	movwf	DAC_Start@endereco^0,c
-   523  00077A                     
-   524                           ;DAC_util.c: 12:     return I2C_Write(endereco);;	Return value of _DAC_Start is never us
+   305                           ;main.c: 36:             i = 0;
+   306  0006A4  0E00               	movlw	0
+   307  0006A6  6E0A               	movwf	(main@i+1)^0,c
+   308  0006A8  0E00               	movlw	0
+   309  0006AA  6E09               	movwf	main@i^0,c
+   310  0006AC                     l987:
+   311                           
+   312                           ;main.c: 38:         if(k < 4){
+   313  0006AC  500C               	movf	(main@k+1)^0,w,c
+   314  0006AE  E107               	bnz	u151
+   315  0006B0  0E04               	movlw	4
+   316  0006B2  5C0B               	subwf	main@k^0,w,c
+   317  0006B4  B0D8               	btfsc	status,0,c
+   318  0006B6  EF5F  F003         	goto	u151
+   319  0006BA  EF61  F003         	goto	u150
+   320  0006BE                     u151:
+   321  0006BE  EF67  F003         	goto	l991
+   322  0006C2                     u150:
+   323  0006C2                     
+   324                           ;main.c: 39:             j2 = 4;
+   325  0006C2  0E04               	movlw	4
+   326  0006C4  6E08               	movwf	main@j2^0,c
+   327                           
+   328                           ;main.c: 40:             k = 0;
+   329  0006C6  0E00               	movlw	0
+   330  0006C8  6E0C               	movwf	(main@k+1)^0,c
+   331  0006CA  0E00               	movlw	0
+   332  0006CC  6E0B               	movwf	main@k^0,c
+   333  0006CE                     l991:
+   334                           
+   335                           ;main.c: 43:         if(k > 1023 ){
+   336  0006CE  0E04               	movlw	4
+   337  0006D0  5C0C               	subwf	(main@k+1)^0,w,c
+   338  0006D2  A0D8               	btfss	status,0,c
+   339  0006D4  EF6E  F003         	goto	u161
+   340  0006D8  EF70  F003         	goto	u160
+   341  0006DC                     u161:
+   342  0006DC  EF75  F003         	goto	l995
+   343  0006E0                     u160:
+   344  0006E0                     
+   345                           ;main.c: 44:             j2 = -4;
+   346  0006E0  0EFC               	movlw	252
+   347  0006E2  6E08               	movwf	main@j2^0,c
+   348                           
+   349                           ;main.c: 45:             k = 1023;
+   350  0006E4  0E03               	movlw	3
+   351  0006E6  6E0C               	movwf	(main@k+1)^0,c
+   352  0006E8  680B               	setf	main@k^0,c
+   353  0006EA                     l995:
+   354                           
+   355                           ;main.c: 49:         if(i > 1023){
+   356  0006EA  0E04               	movlw	4
+   357  0006EC  5C0A               	subwf	(main@i+1)^0,w,c
+   358  0006EE  A0D8               	btfss	status,0,c
+   359  0006F0  EF7C  F003         	goto	u171
+   360  0006F4  EF7E  F003         	goto	u170
+   361  0006F8                     u171:
+   362  0006F8  EF83  F003         	goto	l999
+   363  0006FC                     u170:
+   364  0006FC                     
+   365                           ;main.c: 50:             j = -4;
+   366  0006FC  0EFC               	movlw	252
+   367  0006FE  6E07               	movwf	main@j^0,c
+   368                           
+   369                           ;main.c: 51:             i = 1023;
+   370  000700  0E03               	movlw	3
+   371  000702  6E0A               	movwf	(main@i+1)^0,c
+   372  000704  6809               	setf	main@i^0,c
+   373  000706                     l999:
+   374                           
+   375                           ;main.c: 55:         __nop();
+   376  000706  F000               	nop	
+   377  000708                     
+   378                           ;main.c: 57:         _delay((unsigned long)((5)*(16000000/4000.0)));
+   379  000708  0E1A               	movlw	26
+   380  00070A  6E06               	movwf	??_main^0,c
+   381  00070C  0EF8               	movlw	248
+   382  00070E                     u197:
+   383  00070E  2EE8               	decfsz	wreg,f,c
+   384  000710  D7FE               	bra	u197
+   385  000712  2E06               	decfsz	??_main^0,f,c
+   386  000714  D7FC               	bra	u197
+   387  000716  D000               	nop2	
+   388  000718  EF0F  F003         	goto	l21
+   389  00071C  EF00  F000         	goto	start
+   390  000720                     __end_of_main:
+   391                           	opt callstack 0
+   392                           
+   393 ;; *************** function _I2C_Stop *****************
+   394 ;; Defined at:
+   395 ;;		line 65 in file "i2c_util.c"
+   396 ;; Parameters:    Size  Location     Type
+   397 ;;		None
+   398 ;; Auto vars:     Size  Location     Type
+   399 ;;		None
+   400 ;; Return value:  Size  Location     Type
+   401 ;;                  1    wreg      unsigned char 
+   402 ;; Registers used:
+   403 ;;		wreg
+   404 ;; Tracked objects:
+   405 ;;		On entry : 0/0
+   406 ;;		On exit  : 0/0
+   407 ;;		Unchanged: 0/0
+   408 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   409 ;;      Params:         0       0       0       0       0       0       0
+   410 ;;      Locals:         0       0       0       0       0       0       0
+   411 ;;      Temps:          0       0       0       0       0       0       0
+   412 ;;      Totals:         0       0       0       0       0       0       0
+   413 ;;Total ram usage:        0 bytes
+   414 ;; Hardware stack levels used:    1
+   415 ;; This function calls:
+   416 ;;		Nothing
+   417 ;; This function is called by:
+   418 ;;		_main
+   419 ;; This function uses a non-reentrant model
+   420 ;;
+   421                           
+   422                           	psect	text1
+   423  0007C2                     __ptext1:
+   424                           	opt callstack 0
+   425  0007C2                     _I2C_Stop:
+   426                           	opt callstack 30
+   427  0007C2                     
+   428                           ;i2c_util.c: 67:     PEN = 1;
+   429  0007C2  84C5               	bsf	4037,2,c	;volatile
+   430  0007C4                     l92:
+   431  0007C4  B4C5               	btfsc	4037,2,c	;volatile
+   432  0007C6  EFE7  F003         	goto	u51
+   433  0007CA  EFE9  F003         	goto	u50
+   434  0007CE                     u51:
+   435  0007CE  EFE2  F003         	goto	l92
+   436  0007D2                     u50:
+   437  0007D2                     
+   438                           ;i2c_util.c: 73:     SSPIF = 0;
+   439  0007D2  969E               	bcf	3998,3,c	;volatile
+   440                           
+   441                           ;i2c_util.c: 76:     if (!SSPSTATbits.P)
+   442  0007D4  50C7               	movf	199,w,c	;volatile
+   443  0007D6  0012               	return		;funcret
+   444  0007D8                     __end_of_I2C_Stop:
+   445                           	opt callstack 0
+   446                           
+   447 ;; *************** function _I2C_Init *****************
+   448 ;; Defined at:
+   449 ;;		line 3 in file "i2c_util.c"
+   450 ;; Parameters:    Size  Location     Type
+   451 ;;		None
+   452 ;; Auto vars:     Size  Location     Type
+   453 ;;		None
+   454 ;; Return value:  Size  Location     Type
+   455 ;;                  1    wreg      void 
+   456 ;; Registers used:
+   457 ;;		wreg, status,2
+   458 ;; Tracked objects:
+   459 ;;		On entry : 0/0
+   460 ;;		On exit  : 0/0
+   461 ;;		Unchanged: 0/0
+   462 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   463 ;;      Params:         0       0       0       0       0       0       0
+   464 ;;      Locals:         0       0       0       0       0       0       0
+   465 ;;      Temps:          0       0       0       0       0       0       0
+   466 ;;      Totals:         0       0       0       0       0       0       0
+   467 ;;Total ram usage:        0 bytes
+   468 ;; Hardware stack levels used:    1
+   469 ;; This function calls:
+   470 ;;		Nothing
+   471 ;; This function is called by:
+   472 ;;		_main
+   473 ;; This function uses a non-reentrant model
+   474 ;;
+   475                           
+   476                           	psect	text2
+   477  000770                     __ptext2:
+   478                           	opt callstack 0
+   479  000770                     _I2C_Init:
+   480                           	opt callstack 30
+   481  000770                     
+   482                           ;i2c_util.c: 4:     ADCON1 = 0x0F;
+   483  000770  0E0F               	movlw	15
+   484  000772  6EC1               	movwf	193,c	;volatile
+   485  000774                     
+   486                           ;i2c_util.c: 7:     TRISC3 = 1;
+   487  000774  8694               	bsf	3988,3,c	;volatile
+   488  000776                     
+   489                           ;i2c_util.c: 8:     TRISC4 = 1;
+   490  000776  8894               	bsf	3988,4,c	;volatile
+   491                           
+   492                           ;i2c_util.c: 11:     SSPSTAT = 0x80;
+   493  000778  0E80               	movlw	128
+   494  00077A  6EC7               	movwf	199,c	;volatile
+   495                           
+   496                           ;i2c_util.c: 14:     SSPCON1 = 0x28;
+   497  00077C  0E28               	movlw	40
+   498  00077E  6EC6               	movwf	198,c	;volatile
+   499                           
+   500                           ;i2c_util.c: 15:     SSPCON2 = 0x00;
+   501  000780  0E00               	movlw	0
+   502  000782  6EC5               	movwf	197,c	;volatile
+   503                           
+   504                           ;i2c_util.c: 18:     SSPADD = 39;
+   505  000784  0E27               	movlw	39
+   506  000786  6EC8               	movwf	200,c	;volatile
+   507  000788                     
+   508                           ;i2c_util.c: 21:     SSPIE = 1;
+   509  000788  869D               	bsf	3997,3,c	;volatile
+   510  00078A                     
+   511                           ;i2c_util.c: 22:     SSPIF = 0;
+   512  00078A  969E               	bcf	3998,3,c	;volatile
+   513  00078C  0012               	return		;funcret
+   514  00078E                     __end_of_I2C_Init:
+   515                           	opt callstack 0
+   516                           
+   517 ;; *************** function _DAC_Write *****************
+   518 ;; Defined at:
+   519 ;;		line 17 in file "DAC_util.c"
+   520 ;; Parameters:    Size  Location     Type
+   521 ;;  data            2    1[COMRAM] unsigned short 
+   522 ;; Auto vars:     Size  Location     Type
+   523 ;;  result          1    3[COMRAM] unsigned char 
+   524 ;; Return value:  Size  Location     Type
+   525 ;;                  1    wreg      unsigned char 
+   526 ;; Registers used:
+   527 ;;		wreg, status,2, status,0, cstack
+   528 ;; Tracked objects:
+   529 ;;		On entry : 0/0
+   530 ;;		On exit  : 0/0
+   531 ;;		Unchanged: 0/0
+   532 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   533 ;;      Params:         2       0       0       0       0       0       0
+   534 ;;      Locals:         1       0       0       0       0       0       0
+   535 ;;      Temps:          0       0       0       0       0       0       0
+   536 ;;      Totals:         3       0       0       0       0       0       0
+   537 ;;Total ram usage:        3 bytes
+   538 ;; Hardware stack levels used:    1
+   539 ;; Hardware stack levels required when called:    2
+   540 ;; This function calls:
+   541 ;;		_I2C_Write
+   542 ;; This function is called by:
+   543 ;;		_main
+   544 ;; This function uses a non-reentrant model
+   545 ;;
+   546                           
+   547                           	psect	text3
+   548  00078E                     __ptext3:
+   549                           	opt callstack 0
+   550  00078E                     _DAC_Write:
+   551                           	opt callstack 28
+   552  00078E                     
+   553                           ;DAC_util.c: 18:     char result = 0;
+   554  00078E  0E00               	movlw	0
+   555  000790  6E04               	movwf	DAC_Write@result^0,c
+   556  000792                     
+   557                           ;DAC_util.c: 19:     result = result | I2C_Write((unsigned char)(data>>8));
+   558  000792  5003               	movf	(DAC_Write@data+1)^0,w,c
+   559  000794  ECA7  F003         	call	_I2C_Write
+   560  000798  1004               	iorwf	DAC_Write@result^0,w,c
+   561  00079A  6E04               	movwf	DAC_Write@result^0,c
+   562  00079C                     
+   563                           ;DAC_util.c: 20:     result = result |I2C_Write(data);
+   564  00079C  5002               	movf	DAC_Write@data^0,w,c
+   565  00079E  ECA7  F003         	call	_I2C_Write
+   566  0007A2  1004               	iorwf	DAC_Write@result^0,w,c
+   567  0007A4  6E04               	movwf	DAC_Write@result^0,c
+   568  0007A6  0012               	return		;funcret
+   569  0007A8                     __end_of_DAC_Write:
+   570                           	opt callstack 0
+   571                           
+   572 ;; *************** function _DAC_Start *****************
+   573 ;; Defined at:
+   574 ;;		line 11 in file "DAC_util.c"
+   575 ;; Parameters:    Size  Location     Type
+   576 ;;  adress          1    wreg     unsigned char 
+   577 ;;  command         1    1[COMRAM] unsigned char 
+   578 ;; Auto vars:     Size  Location     Type
+   579 ;;  adress          1    3[COMRAM] unsigned char 
+   580 ;;  variable        1    4[COMRAM] unsigned char 
+   581 ;; Return value:  Size  Location     Type
+   582 ;;                  1    wreg      unsigned char 
+   583 ;; Registers used:
+   584 ;;		wreg, status,2, status,0, cstack
+   585 ;; Tracked objects:
+   586 ;;		On entry : 0/0
+   587 ;;		On exit  : 0/0
+   588 ;;		Unchanged: 0/0
+   589 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   590 ;;      Params:         1       0       0       0       0       0       0
+   591 ;;      Locals:         2       0       0       0       0       0       0
+   592 ;;      Temps:          1       0       0       0       0       0       0
+   593 ;;      Totals:         4       0       0       0       0       0       0
+   594 ;;Total ram usage:        4 bytes
+   595 ;; Hardware stack levels used:    1
+   596 ;; Hardware stack levels required when called:    2
+   597 ;; This function calls:
+   598 ;;		_I2C_Write
+   599 ;; This function is called by:
+   600 ;;		_main
+   601 ;; This function uses a non-reentrant model
+   602 ;;
+   603                           
+   604                           	psect	text4
+   605  0007A8                     __ptext4:
+   606                           	opt callstack 0
+   607  0007A8                     _DAC_Start:
+   608                           	opt callstack 28
+   609                           
+   610                           ;incstack = 0
+   611                           ;DAC_Start@adress stored from wreg
+   612  0007A8  6E04               	movwf	DAC_Start@adress^0,c
+   613  0007AA                     
+   614                           ;DAC_util.c: 13:     variable = adress << 3 |command << 1 ;
+   615  0007AA  90D8               	bcf	status,0,c
+   616  0007AC  3402               	rlcf	DAC_Start@command^0,w,c
+   617  0007AE  6E03               	movwf	??_DAC_Start^0,c
+   618  0007B0  3804               	swapf	DAC_Start@adress^0,w,c
+   619  0007B2  42E8               	rrncf	wreg,f,c
+   620  0007B4  0BF8               	andlw	248
+   621  0007B6  1003               	iorwf	??_DAC_Start^0,w,c
+   622  0007B8  6E05               	movwf	DAC_Start@variable^0,c
+   623  0007BA                     
+   624                           ;DAC_util.c: 14:     return I2C_Write(variable);;	Return value of _DAC_Start is never us
       +                          ed
-   525  00077A  5002               	movf	DAC_Start@endereco^0,w,c
-   526  00077C  EC74  F003         	call	_I2C_Write
-   527  000780  0012               	return		;funcret
-   528  000782                     __end_of_DAC_Start:
-   529                           	opt callstack 0
-   530                           
-   531 ;; *************** function _DAC_Init *****************
-   532 ;; Defined at:
-   533 ;;		line 4 in file "DAC_util.c"
-   534 ;; Parameters:    Size  Location     Type
-   535 ;;		None
-   536 ;; Auto vars:     Size  Location     Type
-   537 ;;		None
-   538 ;; Return value:  Size  Location     Type
-   539 ;;                  1    wreg      void 
-   540 ;; Registers used:
-   541 ;;		wreg, status,2, cstack
-   542 ;; Tracked objects:
-   543 ;;		On entry : 0/0
-   544 ;;		On exit  : 0/0
-   545 ;;		Unchanged: 0/0
-   546 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   547 ;;      Params:         0       0       0       0       0       0       0
-   548 ;;      Locals:         0       0       0       0       0       0       0
-   549 ;;      Temps:          0       0       0       0       0       0       0
-   550 ;;      Totals:         0       0       0       0       0       0       0
-   551 ;;Total ram usage:        0 bytes
-   552 ;; Hardware stack levels used:    1
-   553 ;; Hardware stack levels required when called:    3
-   554 ;; This function calls:
-   555 ;;		_I2C_Start
-   556 ;; This function is called by:
-   557 ;;		_main
-   558 ;; This function uses a non-reentrant model
-   559 ;;
-   560                           
-   561                           	psect	text5
-   562  000782                     __ptext5:
-   563                           	opt callstack 0
-   564  000782                     _DAC_Init:
-   565                           	opt callstack 27
-   566  000782                     
-   567                           ;DAC_util.c: 6:     TRISC5 = 0;
-   568  000782  9A94               	bcf	3988,5,c	;volatile
-   569  000784  0EC4               	movlw	196
-   570  000786  EC5D  F003         	call	_I2C_Start
-   571  00078A  0012               	return		;funcret
-   572  00078C                     __end_of_DAC_Init:
-   573                           	opt callstack 0
-   574                           
-   575 ;; *************** function _I2C_Start *****************
-   576 ;; Defined at:
-   577 ;;		line 25 in file "i2c_util.c"
-   578 ;; Parameters:    Size  Location     Type
-   579 ;;  slave_write_    1    wreg     unsigned char 
-   580 ;; Auto vars:     Size  Location     Type
-   581 ;;  slave_write_    1    1[COMRAM] unsigned char 
-   582 ;; Return value:  Size  Location     Type
-   583 ;;                  1    wreg      unsigned char 
-   584 ;; Registers used:
-   585 ;;		wreg, status,2, cstack
-   586 ;; Tracked objects:
-   587 ;;		On entry : 0/0
-   588 ;;		On exit  : 0/0
-   589 ;;		Unchanged: 0/0
-   590 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   591 ;;      Params:         0       0       0       0       0       0       0
-   592 ;;      Locals:         1       0       0       0       0       0       0
-   593 ;;      Temps:          0       0       0       0       0       0       0
-   594 ;;      Totals:         1       0       0       0       0       0       0
-   595 ;;Total ram usage:        1 bytes
-   596 ;; Hardware stack levels used:    1
-   597 ;; Hardware stack levels required when called:    2
-   598 ;; This function calls:
-   599 ;;		_I2C_Write
-   600 ;; This function is called by:
-   601 ;;		_DAC_Init
-   602 ;; This function uses a non-reentrant model
-   603 ;;
-   604                           
-   605                           	psect	text6
-   606  0006BA                     __ptext6:
-   607                           	opt callstack 0
-   608  0006BA                     _I2C_Start:
-   609                           	opt callstack 27
-   610                           
-   611                           ;incstack = 0
-   612                           ;I2C_Start@slave_write_address stored from wreg
-   613  0006BA  6E02               	movwf	I2C_Start@slave_write_address^0,c
-   614  0006BC                     
-   615                           ;i2c_util.c: 27:     SSPCON2bits.SEN = 1;
-   616  0006BC  80C5               	bsf	197,0,c	;volatile
-   617  0006BE                     l70:
-   618  0006BE  B0C5               	btfsc	197,0,c	;volatile
-   619  0006C0  EF64  F003         	goto	u31
-   620  0006C4  EF66  F003         	goto	u30
-   621  0006C8                     u31:
-   622  0006C8  EF5F  F003         	goto	l70
-   623  0006CC                     u30:
-   624  0006CC                     
-   625                           ;i2c_util.c: 33:     SSPIF = 0;
-   626  0006CC  969E               	bcf	3998,3,c	;volatile
-   627                           
-   628                           ;i2c_util.c: 36:     if (!SSPSTATbits.S)
-   629  0006CE  B6C7               	btfsc	199,3,c	;volatile
-   630  0006D0  EF6C  F003         	goto	u41
-   631  0006D4  EF6E  F003         	goto	u40
-   632  0006D8                     u41:
-   633  0006D8  EF70  F003         	goto	l827
-   634  0006DC                     u40:
-   635  0006DC  EF73  F003         	goto	l74
-   636  0006E0                     l827:
-   637                           
-   638                           ;i2c_util.c: 40:     return (I2C_Write(slave_write_address));;	Return value of _I2C_Star
+   625  0007BA  5005               	movf	DAC_Start@variable^0,w,c
+   626  0007BC  ECA7  F003         	call	_I2C_Write
+   627  0007C0  0012               	return		;funcret
+   628  0007C2                     __end_of_DAC_Start:
+   629                           	opt callstack 0
+   630                           
+   631 ;; *************** function _DAC_Init *****************
+   632 ;; Defined at:
+   633 ;;		line 4 in file "DAC_util.c"
+   634 ;; Parameters:    Size  Location     Type
+   635 ;;		None
+   636 ;; Auto vars:     Size  Location     Type
+   637 ;;		None
+   638 ;; Return value:  Size  Location     Type
+   639 ;;                  1    wreg      void 
+   640 ;; Registers used:
+   641 ;;		wreg, status,2, cstack
+   642 ;; Tracked objects:
+   643 ;;		On entry : 0/0
+   644 ;;		On exit  : 0/0
+   645 ;;		Unchanged: 0/0
+   646 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   647 ;;      Params:         0       0       0       0       0       0       0
+   648 ;;      Locals:         0       0       0       0       0       0       0
+   649 ;;      Temps:          0       0       0       0       0       0       0
+   650 ;;      Totals:         0       0       0       0       0       0       0
+   651 ;;Total ram usage:        0 bytes
+   652 ;; Hardware stack levels used:    1
+   653 ;; Hardware stack levels required when called:    3
+   654 ;; This function calls:
+   655 ;;		_I2C_Start
+   656 ;; This function is called by:
+   657 ;;		_main
+   658 ;; This function uses a non-reentrant model
+   659 ;;
+   660                           
+   661                           	psect	text5
+   662  0007F8                     __ptext5:
+   663                           	opt callstack 0
+   664  0007F8                     _DAC_Init:
+   665                           	opt callstack 27
+   666  0007F8                     
+   667                           ;DAC_util.c: 6:     TRISC5 = 0;
+   668  0007F8  9A94               	bcf	3988,5,c	;volatile
+   669  0007FA  0EC4               	movlw	196
+   670  0007FC  EC90  F003         	call	_I2C_Start
+   671  000800  0012               	return		;funcret
+   672  000802                     __end_of_DAC_Init:
+   673                           	opt callstack 0
+   674                           
+   675 ;; *************** function _I2C_Start *****************
+   676 ;; Defined at:
+   677 ;;		line 25 in file "i2c_util.c"
+   678 ;; Parameters:    Size  Location     Type
+   679 ;;  slave_write_    1    wreg     unsigned char 
+   680 ;; Auto vars:     Size  Location     Type
+   681 ;;  slave_write_    1    1[COMRAM] unsigned char 
+   682 ;; Return value:  Size  Location     Type
+   683 ;;                  1    wreg      unsigned char 
+   684 ;; Registers used:
+   685 ;;		wreg, status,2, cstack
+   686 ;; Tracked objects:
+   687 ;;		On entry : 0/0
+   688 ;;		On exit  : 0/0
+   689 ;;		Unchanged: 0/0
+   690 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   691 ;;      Params:         0       0       0       0       0       0       0
+   692 ;;      Locals:         1       0       0       0       0       0       0
+   693 ;;      Temps:          0       0       0       0       0       0       0
+   694 ;;      Totals:         1       0       0       0       0       0       0
+   695 ;;Total ram usage:        1 bytes
+   696 ;; Hardware stack levels used:    1
+   697 ;; Hardware stack levels required when called:    2
+   698 ;; This function calls:
+   699 ;;		_I2C_Write
+   700 ;; This function is called by:
+   701 ;;		_DAC_Init
+   702 ;; This function uses a non-reentrant model
+   703 ;;
+   704                           
+   705                           	psect	text6
+   706  000720                     __ptext6:
+   707                           	opt callstack 0
+   708  000720                     _I2C_Start:
+   709                           	opt callstack 27
+   710                           
+   711                           ;incstack = 0
+   712                           ;I2C_Start@slave_write_address stored from wreg
+   713  000720  6E02               	movwf	I2C_Start@slave_write_address^0,c
+   714  000722                     
+   715                           ;i2c_util.c: 27:     SSPCON2bits.SEN = 1;
+   716  000722  80C5               	bsf	197,0,c	;volatile
+   717  000724                     l74:
+   718  000724  B0C5               	btfsc	197,0,c	;volatile
+   719  000726  EF97  F003         	goto	u31
+   720  00072A  EF99  F003         	goto	u30
+   721  00072E                     u31:
+   722  00072E  EF92  F003         	goto	l74
+   723  000732                     u30:
+   724  000732                     
+   725                           ;i2c_util.c: 33:     SSPIF = 0;
+   726  000732  969E               	bcf	3998,3,c	;volatile
+   727                           
+   728                           ;i2c_util.c: 36:     if (!SSPSTATbits.S)
+   729  000734  B6C7               	btfsc	199,3,c	;volatile
+   730  000736  EF9F  F003         	goto	u41
+   731  00073A  EFA1  F003         	goto	u40
+   732  00073E                     u41:
+   733  00073E  EFA3  F003         	goto	l831
+   734  000742                     u40:
+   735  000742  EFA6  F003         	goto	l78
+   736  000746                     l831:
+   737                           
+   738                           ;i2c_util.c: 40:     return (I2C_Write(slave_write_address));;	Return value of _I2C_Star
       +                          t is never used
-   639  0006E0  5002               	movf	I2C_Start@slave_write_address^0,w,c
-   640  0006E2  EC74  F003         	call	_I2C_Write
-   641  0006E6                     l74:
-   642  0006E6  0012               	return		;funcret
-   643  0006E8                     __end_of_I2C_Start:
-   644                           	opt callstack 0
-   645                           
-   646 ;; *************** function _I2C_Write *****************
-   647 ;; Defined at:
-   648 ;;		line 51 in file "i2c_util.c"
-   649 ;; Parameters:    Size  Location     Type
-   650 ;;  data            1    wreg     unsigned char 
-   651 ;; Auto vars:     Size  Location     Type
-   652 ;;  data            1    0[COMRAM] unsigned char 
-   653 ;; Return value:  Size  Location     Type
-   654 ;;                  1    wreg      unsigned char 
-   655 ;; Registers used:
-   656 ;;		wreg, cstack
-   657 ;; Tracked objects:
-   658 ;;		On entry : 0/0
-   659 ;;		On exit  : 0/0
-   660 ;;		Unchanged: 0/0
-   661 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   662 ;;      Params:         0       0       0       0       0       0       0
-   663 ;;      Locals:         1       0       0       0       0       0       0
-   664 ;;      Temps:          0       0       0       0       0       0       0
-   665 ;;      Totals:         1       0       0       0       0       0       0
-   666 ;;Total ram usage:        1 bytes
-   667 ;; Hardware stack levels used:    1
-   668 ;; Hardware stack levels required when called:    1
-   669 ;; This function calls:
-   670 ;;		_I2C_Ready
-   671 ;; This function is called by:
-   672 ;;		_I2C_Start
-   673 ;;		_DAC_Start
-   674 ;;		_DAC_Write
-   675 ;; This function uses a non-reentrant model
-   676 ;;
-   677                           
-   678                           	psect	text7
-   679  0006E8                     __ptext7:
-   680                           	opt callstack 0
-   681  0006E8                     _I2C_Write:
-   682                           	opt callstack 28
-   683                           
-   684                           ;incstack = 0
-   685                           ;I2C_Write@data stored from wreg
-   686  0006E8  6E01               	movwf	I2C_Write@data^0,c
-   687  0006EA                     
-   688                           ;i2c_util.c: 53:     SSPBUF = data;
-   689  0006EA  C001  FFC9         	movff	I2C_Write@data,4041	;volatile
-   690  0006EE                     
-   691                           ;i2c_util.c: 56:     I2C_Ready();
-   692  0006EE  ECAC  F003         	call	_I2C_Ready	;wreg free
-   693  0006F2                     
-   694                           ;i2c_util.c: 59:     if (ACKSTAT)
-   695  0006F2  ACC5               	btfss	4037,6,c	;volatile
-   696  0006F4  EF7E  F003         	goto	u21
-   697  0006F8  EF80  F003         	goto	u20
-   698  0006FC                     u21:
-   699  0006FC  EF83  F003         	goto	l819
-   700  000700                     u20:
-   701  000700                     
-   702                           ;i2c_util.c: 60:         return 1;
-   703  000700  0E01               	movlw	1
-   704  000702  EF84  F003         	goto	l84
-   705  000706                     l819:
-   706                           
-   707                           ;i2c_util.c: 62:         return 2;
-   708  000706  0E02               	movlw	2
-   709  000708                     l84:
-   710  000708  0012               	return		;funcret
-   711  00070A                     __end_of_I2C_Write:
-   712                           	opt callstack 0
-   713                           
-   714 ;; *************** function _I2C_Ready *****************
-   715 ;; Defined at:
-   716 ;;		line 43 in file "i2c_util.c"
-   717 ;; Parameters:    Size  Location     Type
-   718 ;;		None
-   719 ;; Auto vars:     Size  Location     Type
-   720 ;;		None
-   721 ;; Return value:  Size  Location     Type
-   722 ;;                  1    wreg      void 
-   723 ;; Registers used:
-   724 ;;		None
-   725 ;; Tracked objects:
-   726 ;;		On entry : 0/0
-   727 ;;		On exit  : 0/0
-   728 ;;		Unchanged: 0/0
-   729 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
-   730 ;;      Params:         0       0       0       0       0       0       0
-   731 ;;      Locals:         0       0       0       0       0       0       0
-   732 ;;      Temps:          0       0       0       0       0       0       0
-   733 ;;      Totals:         0       0       0       0       0       0       0
-   734 ;;Total ram usage:        0 bytes
-   735 ;; Hardware stack levels used:    1
-   736 ;; This function calls:
-   737 ;;		Nothing
-   738 ;; This function is called by:
-   739 ;;		_I2C_Write
-   740 ;;		_I2C_Read
-   741 ;; This function uses a non-reentrant model
-   742 ;;
-   743                           
-   744                           	psect	text8
-   745  000758                     __ptext8:
-   746                           	opt callstack 0
-   747  000758                     _I2C_Ready:
-   748                           	opt callstack 28
-   749  000758                     l77:
-   750  000758  A69E               	btfss	3998,3,c	;volatile
-   751  00075A  EFB1  F003         	goto	u11
-   752  00075E  EFB3  F003         	goto	u10
-   753  000762                     u11:
-   754  000762  EFAC  F003         	goto	l77
-   755  000766                     u10:
-   756  000766                     
-   757                           ;i2c_util.c: 48:     SSPIF = 0;
-   758  000766  969E               	bcf	3998,3,c	;volatile
-   759  000768  0012               	return		;funcret
-   760  00076A                     __end_of_I2C_Ready:
-   761                           	opt callstack 0
-   762                           
-   763                           	psect	rparam
-   764  0000                     tosu	equ	0xFFF
-   765                           tosh	equ	0xFFE
-   766                           tosl	equ	0xFFD
-   767                           stkptr	equ	0xFFC
-   768                           pclatu	equ	0xFFB
-   769                           pclath	equ	0xFFA
-   770                           pcl	equ	0xFF9
-   771                           tblptru	equ	0xFF8
-   772                           tblptrh	equ	0xFF7
-   773                           tblptrl	equ	0xFF6
-   774                           tablat	equ	0xFF5
-   775                           prodh	equ	0xFF4
-   776                           prodl	equ	0xFF3
-   777                           indf0	equ	0xFEF
-   778                           postinc0	equ	0xFEE
-   779                           postdec0	equ	0xFED
-   780                           preinc0	equ	0xFEC
-   781                           plusw0	equ	0xFEB
-   782                           fsr0h	equ	0xFEA
-   783                           fsr0l	equ	0xFE9
-   784                           wreg	equ	0xFE8
-   785                           indf1	equ	0xFE7
-   786                           postinc1	equ	0xFE6
-   787                           postdec1	equ	0xFE5
-   788                           preinc1	equ	0xFE4
-   789                           plusw1	equ	0xFE3
-   790                           fsr1h	equ	0xFE2
-   791                           fsr1l	equ	0xFE1
-   792                           bsr	equ	0xFE0
-   793                           indf2	equ	0xFDF
-   794                           postinc2	equ	0xFDE
-   795                           postdec2	equ	0xFDD
-   796                           preinc2	equ	0xFDC
-   797                           plusw2	equ	0xFDB
-   798                           fsr2h	equ	0xFDA
-   799                           fsr2l	equ	0xFD9
-   800                           status	equ	0xFD8
+   739  000746  5002               	movf	I2C_Start@slave_write_address^0,w,c
+   740  000748  ECA7  F003         	call	_I2C_Write
+   741  00074C                     l78:
+   742  00074C  0012               	return		;funcret
+   743  00074E                     __end_of_I2C_Start:
+   744                           	opt callstack 0
+   745                           
+   746 ;; *************** function _I2C_Write *****************
+   747 ;; Defined at:
+   748 ;;		line 51 in file "i2c_util.c"
+   749 ;; Parameters:    Size  Location     Type
+   750 ;;  data            1    wreg     unsigned char 
+   751 ;; Auto vars:     Size  Location     Type
+   752 ;;  data            1    0[COMRAM] unsigned char 
+   753 ;; Return value:  Size  Location     Type
+   754 ;;                  1    wreg      unsigned char 
+   755 ;; Registers used:
+   756 ;;		wreg, cstack
+   757 ;; Tracked objects:
+   758 ;;		On entry : 0/0
+   759 ;;		On exit  : 0/0
+   760 ;;		Unchanged: 0/0
+   761 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   762 ;;      Params:         0       0       0       0       0       0       0
+   763 ;;      Locals:         1       0       0       0       0       0       0
+   764 ;;      Temps:          0       0       0       0       0       0       0
+   765 ;;      Totals:         1       0       0       0       0       0       0
+   766 ;;Total ram usage:        1 bytes
+   767 ;; Hardware stack levels used:    1
+   768 ;; Hardware stack levels required when called:    1
+   769 ;; This function calls:
+   770 ;;		_I2C_Ready
+   771 ;; This function is called by:
+   772 ;;		_I2C_Start
+   773 ;;		_DAC_Start
+   774 ;;		_DAC_Write
+   775 ;; This function uses a non-reentrant model
+   776 ;;
+   777                           
+   778                           	psect	text7
+   779  00074E                     __ptext7:
+   780                           	opt callstack 0
+   781  00074E                     _I2C_Write:
+   782                           	opt callstack 28
+   783                           
+   784                           ;incstack = 0
+   785                           ;I2C_Write@data stored from wreg
+   786  00074E  6E01               	movwf	I2C_Write@data^0,c
+   787  000750                     
+   788                           ;i2c_util.c: 53:     SSPBUF = data;
+   789  000750  C001  FFC9         	movff	I2C_Write@data,4041	;volatile
+   790  000754                     
+   791                           ;i2c_util.c: 56:     I2C_Ready();
+   792  000754  ECEC  F003         	call	_I2C_Ready	;wreg free
+   793  000758                     
+   794                           ;i2c_util.c: 59:     if (ACKSTAT)
+   795  000758  ACC5               	btfss	4037,6,c	;volatile
+   796  00075A  EFB1  F003         	goto	u21
+   797  00075E  EFB3  F003         	goto	u20
+   798  000762                     u21:
+   799  000762  EFB6  F003         	goto	l823
+   800  000766                     u20:
+   801  000766                     
+   802                           ;i2c_util.c: 60:         return 1;
+   803  000766  0E01               	movlw	1
+   804  000768  EFB7  F003         	goto	l88
+   805  00076C                     l823:
+   806                           
+   807                           ;i2c_util.c: 62:         return 2;
+   808  00076C  0E02               	movlw	2
+   809  00076E                     l88:
+   810  00076E  0012               	return		;funcret
+   811  000770                     __end_of_I2C_Write:
+   812                           	opt callstack 0
+   813                           
+   814 ;; *************** function _I2C_Ready *****************
+   815 ;; Defined at:
+   816 ;;		line 43 in file "i2c_util.c"
+   817 ;; Parameters:    Size  Location     Type
+   818 ;;		None
+   819 ;; Auto vars:     Size  Location     Type
+   820 ;;		None
+   821 ;; Return value:  Size  Location     Type
+   822 ;;                  1    wreg      void 
+   823 ;; Registers used:
+   824 ;;		None
+   825 ;; Tracked objects:
+   826 ;;		On entry : 0/0
+   827 ;;		On exit  : 0/0
+   828 ;;		Unchanged: 0/0
+   829 ;; Data sizes:     COMRAM   BANK0   BANK1   BANK2   BANK3   BANK4   BANK5
+   830 ;;      Params:         0       0       0       0       0       0       0
+   831 ;;      Locals:         0       0       0       0       0       0       0
+   832 ;;      Temps:          0       0       0       0       0       0       0
+   833 ;;      Totals:         0       0       0       0       0       0       0
+   834 ;;Total ram usage:        0 bytes
+   835 ;; Hardware stack levels used:    1
+   836 ;; This function calls:
+   837 ;;		Nothing
+   838 ;; This function is called by:
+   839 ;;		_I2C_Write
+   840 ;;		_I2C_Read
+   841 ;; This function uses a non-reentrant model
+   842 ;;
+   843                           
+   844                           	psect	text8
+   845  0007D8                     __ptext8:
+   846                           	opt callstack 0
+   847  0007D8                     _I2C_Ready:
+   848                           	opt callstack 28
+   849  0007D8                     l81:
+   850  0007D8  A69E               	btfss	3998,3,c	;volatile
+   851  0007DA  EFF1  F003         	goto	u11
+   852  0007DE  EFF3  F003         	goto	u10
+   853  0007E2                     u11:
+   854  0007E2  EFEC  F003         	goto	l81
+   855  0007E6                     u10:
+   856  0007E6                     
+   857                           ;i2c_util.c: 48:     SSPIF = 0;
+   858  0007E6  969E               	bcf	3998,3,c	;volatile
+   859  0007E8  0012               	return		;funcret
+   860  0007EA                     __end_of_I2C_Ready:
+   861                           	opt callstack 0
+   862                           
+   863                           	psect	rparam
+   864  0000                     tosu	equ	0xFFF
+   865                           tosh	equ	0xFFE
+   866                           tosl	equ	0xFFD
+   867                           stkptr	equ	0xFFC
+   868                           pclatu	equ	0xFFB
+   869                           pclath	equ	0xFFA
+   870                           pcl	equ	0xFF9
+   871                           tblptru	equ	0xFF8
+   872                           tblptrh	equ	0xFF7
+   873                           tblptrl	equ	0xFF6
+   874                           tablat	equ	0xFF5
+   875                           prodh	equ	0xFF4
+   876                           prodl	equ	0xFF3
+   877                           indf0	equ	0xFEF
+   878                           postinc0	equ	0xFEE
+   879                           postdec0	equ	0xFED
+   880                           preinc0	equ	0xFEC
+   881                           plusw0	equ	0xFEB
+   882                           fsr0h	equ	0xFEA
+   883                           fsr0l	equ	0xFE9
+   884                           wreg	equ	0xFE8
+   885                           indf1	equ	0xFE7
+   886                           postinc1	equ	0xFE6
+   887                           postdec1	equ	0xFE5
+   888                           preinc1	equ	0xFE4
+   889                           plusw1	equ	0xFE3
+   890                           fsr1h	equ	0xFE2
+   891                           fsr1l	equ	0xFE1
+   892                           bsr	equ	0xFE0
+   893                           indf2	equ	0xFDF
+   894                           postinc2	equ	0xFDE
+   895                           postdec2	equ	0xFDD
+   896                           preinc2	equ	0xFDC
+   897                           plusw2	equ	0xFDB
+   898                           fsr2h	equ	0xFDA
+   899                           fsr2l	equ	0xFD9
+   900                           status	equ	0xFD8
 
 
 Data Sizes:
@@ -826,7 +926,7 @@ Data Sizes:
 
 Auto Spaces:
     Space          Size  Autos    Used
-    COMRAM          127      9       9
+    COMRAM          127     12      12
     BANK0           128      0       0
     BANK1           256      0       0
     BANK2           256      0       0
@@ -840,7 +940,7 @@ Pointer List with Targets:
 
 Critical Paths under _main in COMRAM
 
-    _main->_DAC_Write
+    _main->_DAC_Start
     _DAC_Write->_I2C_Write
     _DAC_Start->_I2C_Write
     _DAC_Init->_I2C_Start
@@ -875,8 +975,8 @@ Call Graph Tables:
  ---------------------------------------------------------------------------------
  (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
  ---------------------------------------------------------------------------------
- (0) _main                                                 5     5      0     463
-                                              4 COMRAM     5     5      0
+ (0) _main                                                 7     7      0     763
+                                              5 COMRAM     7     7      0
                            _DAC_Init
                           _DAC_Start
                           _DAC_Write
@@ -891,8 +991,8 @@ Call Graph Tables:
                                               1 COMRAM     3     1      2
                           _I2C_Write
  ---------------------------------------------------------------------------------
- (1) _DAC_Start                                            1     1      0      30
-                                              1 COMRAM     1     1      0
+ (1) _DAC_Start                                            4     3      1     235
+                                              1 COMRAM     4     3      1
                           _I2C_Write
  ---------------------------------------------------------------------------------
  (1) _DAC_Init                                             0     0      0      30
@@ -933,7 +1033,7 @@ BITCOMRAM           7F      0       0       0        0.0%
 EEDATA             100      0       0       0        0.0%
 NULL                 0      0       0       0        0.0%
 CODE                 0      0       0       0        0.0%
-COMRAM              7F      9       9       1        7.1%
+COMRAM              7F      C       C       1        9.4%
 STACK                0      0       0       2        0.0%
 DATA                 0      0       0       3        0.0%
 BITBANK0            80      0       0       4        0.0%
@@ -955,63 +1055,70 @@ SFR                  0      0       0     200        0.0%
 
 
 Microchip Technology PIC18 Macro Assembler V2.10 build 88905656 
-Symbol Table                                                                                   Mon May 18 11:43:31 2020
+Symbol Table                                                                                   Mon May 18 18:22:36 2020
 
           __size_of_I2C_Ready 0012            __size_of_I2C_Start 002E                   _SSPSTATbits 000FC7  
-          __size_of_I2C_Write 0022                            l19 0614                            l70 06BE  
-                          l80 0768                            l72 06CC                            l74 06E6  
-                          l90 0752                            l67 0726                            l84 0708  
-                          l92 0756                            l77 0758                            l79 0766  
-                          l88 0744                            u10 0766                            u11 0762  
-                          u20 0700                            u21 06FC                            u30 06CC  
-                          u31 06C8                            u40 06DC                            u41 06D8  
-                          u50 0752                            u51 074E                   __CFG_OSC$HS 000000  
-          __size_of_DAC_Start 000A            __size_of_DAC_Write 001A                           l123 078A  
-                         l126 0780                           l129 0740                           l811 06F2  
-                         l805 0758                           l813 0700                           l807 06EA  
-                         l823 06BC                           l911 072C                           l831 070A  
-                         l809 06EE                           l841 0782                           l913 0736  
-                         l833 070E                           l921 0610                           l819 0706  
-                         l827 06E0                           l843 0784                           l835 0710  
-                         l931 0638                           l923 061E                           l845 077A  
-                         l909 0728                           l837 0722                           l941 067E  
-                         l933 0648                           l925 062A                           l917 0604  
-                         l839 0724                           l943 0690                           l935 064C  
-                         l927 062E                           l919 0608                           l857 0742  
-                         l945 069A                           l937 065C                           l929 0632  
-                         l939 0672                           u120 0672                           u121 066E  
-                         u130 0690                           u131 068C                           u147 06A4  
-                         _PEN 007E2A                           wreg 000FE8                  __CFG_WDT$OFF 000000  
-                        _RCEN 007E2B                          _main 0604              __end_of_I2C_Init 0728  
-            __end_of_I2C_Stop 0758              __end_of_DAC_Init 078C                          start 0000  
-               __CFG_MCLRE$ON 000000                  ___param_bank 000000                         ?_main 0001  
-                       _ACKEN 007E2C                         _ACKDT 007E2D                         _SSPIE 007CEB  
-                       _SSPIF 007CF3             __end_of_I2C_Ready 076A                         main@i 0008  
-                       main@j 0007             __end_of_I2C_Start 06E8             __end_of_I2C_Write 070A  
-                       status 000FD8             __end_of_DAC_Start 0782             __end_of_DAC_Write 0742  
-             __initialization 076A                  __end_of_main 06BA                 DAC_Write@data 0002  
-                      ??_main 0005                 __activetblptr 000001                        _ADCON1 000FC1  
+          __size_of_I2C_Write 0022                            l21 061E                            l71 078C  
+                          l81 07D8                            l74 0724                            l83 07E6  
+                          l84 07E8                            l76 0732                            l92 07C4  
+                          l78 074C                            l94 07D2                            l88 076E  
+                          l96 07D6                            u10 07E6                            u11 07E2  
+                          u20 0766                            u21 0762                            u30 0732  
+                          u31 072E                            u40 0742                            u41 073E  
+                          u50 07D2                            u51 07CE                   __CFG_OSC$HS 000000  
+          __size_of_DAC_Start 001A            __size_of_DAC_Write 001A                           l130 07C0  
+                         l133 07A6                           l127 0800                           l811 0750  
+                         l813 0754                           l823 076C                           l815 0758  
+                         l831 0746                           l809 07D8                           l817 0766  
+                         l841 0788                           l827 0722                           l843 078A  
+                         l835 0770                           l845 07F8                           l941 07BA  
+                         l837 0774                           l847 07FA                           l839 0776  
+                         l937 07AA                           l945 078E                           l865 07C2  
+                         l961 061A                           l953 0604                           l939 07AA  
+                         l947 0792                           l971 064C                           l963 0622  
+                         l955 0608                           l949 079C                           l981 067A  
+                         l973 0650                           l965 062C                           l957 0610  
+                         l991 06CE                           l983 068A                           l975 065A  
+                         l967 0638                           l959 0616                           l993 06E0  
+                         l985 06A0                           l977 0666                           l969 063C  
+                         l995 06EA                           l987 06AC                           l979 066A  
+                         l997 06FC                           l989 06C2                           l999 0706  
+                         u140 06A0                           u141 069C                           u150 06C2  
+                         u151 06BE                           u160 06E0                           u161 06DC  
+                         u170 06FC                           u171 06F8                           _PEN 007E2A  
+                         u187 0642                           u197 070E                           wreg 000FE8  
+                __CFG_WDT$OFF 000000                          l1001 0708                          _RCEN 007E2B  
+                        _main 0604              __end_of_I2C_Init 078E              __end_of_I2C_Stop 07D8  
+            __end_of_DAC_Init 0802                          start 0000                 __CFG_MCLRE$ON 000000  
+                ___param_bank 000000                         ?_main 0001                         _ACKEN 007E2C  
+                       _ACKDT 007E2D                         _SSPIE 007CEB                         _SSPIF 007CF3  
+           __end_of_I2C_Ready 07EA                         main@i 0009                         main@j 0007  
+                       main@k 000B             __end_of_I2C_Start 074E             __end_of_I2C_Write 0770  
+                       status 000FD8             __end_of_DAC_Start 07C2             __end_of_DAC_Write 07A8  
+             __initialization 07EA                  __end_of_main 0720                 DAC_Write@data 0002  
+                      ??_main 0006                 __activetblptr 000001                        _ADCON1 000FC1  
                       _SSPADD 000FC8                        _TRISC3 007CA3                        _TRISC4 007CA4  
-                      _TRISC5 007CA5                        _SSPBUF 000FC9                     ?_I2C_Init 0001  
-                   ?_I2C_Stop 0001                  __mediumconst 0000                     ?_DAC_Init 0001  
-                      tblptrh 000FF7                        tblptru 000FF8                    __accesstop 0080  
-     __end_of__initialization 076A                 ___rparam_used 000001                __pcstackCOMRAM 0001  
-                  ??_I2C_Init 0001                    ??_I2C_Stop 0001                    ??_DAC_Init 0003  
-                     _ACKSTAT 007E2E                       _SSPCON1 000FC6                       _SSPCON2 000FC5  
-                     _SSPSTAT 000FC7             _DAC_SLAVE_ADDRESS 0601                     _I2C_Ready 0758  
-                   _I2C_Start 06BA                     _I2C_Write 06E8                       __Hparam 0000  
-                     __Lparam 0000                     _DAC_Start 0778                     _DAC_Write 0728  
-                __psmallconst 0600                       __pcinit 076A                       __ramtop 0600  
-                     __ptext0 0604                       __ptext1 0742                       __ptext2 070A  
-                     __ptext3 0728                       __ptext4 0778                       __ptext5 0782  
-                     __ptext6 06BA                       __ptext7 06E8                       __ptext8 0758  
-        end_of_initialization 076A     __end_of_DAC_SLAVE_ADDRESS 0602                    ?_I2C_Ready 0001  
-                  ?_I2C_Start 0001                    ?_I2C_Write 0001                    ?_DAC_Start 0001  
-                  ?_DAC_Write 0002             __size_of_I2C_Init 001E             __size_of_I2C_Stop 0016  
-           __size_of_DAC_Init 000A           start_initialization 076A                   ??_I2C_Ready 0001  
-                 ??_I2C_Start 0002                   ??_I2C_Write 0001               DAC_Write@result 0004  
-                 ??_DAC_Start 0002                   ??_DAC_Write 0004                   __smallconst 0600  
-                    _I2C_Init 070A                      _I2C_Stop 0742                      _DAC_Init 0782  
-           DAC_Start@endereco 0002  I2C_Start@slave_write_address 0002                      __Hrparam 0000  
-                    __Lrparam 0000                  __Lsmallconst 0600                 I2C_Write@data 0001  
-               __size_of_main 00B6                   _SSPCON2bits 000FC5  
+                      _TRISC5 007CA5                        _SSPBUF 000FC9                        main@j2 0008  
+                   ?_I2C_Init 0001                     ?_I2C_Stop 0001                  __mediumconst 0000  
+                   ?_DAC_Init 0001                        tblptrh 000FF7                        tblptru 000FF8  
+                  __accesstop 0080       __end_of__initialization 07EA                 ___rparam_used 000001  
+              __pcstackCOMRAM 0001                    ??_I2C_Init 0001                    ??_I2C_Stop 0001  
+                  ??_DAC_Init 0003                       _ACKSTAT 007E2E                       _SSPCON1 000FC6  
+                     _SSPCON2 000FC5                       _SSPSTAT 000FC7             _DAC_SLAVE_ADDRESS 0601  
+                   _I2C_Ready 07D8                     _I2C_Start 0720                     _I2C_Write 074E  
+                     __Hparam 0000                       __Lparam 0000                     _DAC_Start 07A8  
+                   _DAC_Write 078E                  __psmallconst 0600                       __pcinit 07EA  
+                     __ramtop 0600                       __ptext0 0604                       __ptext1 07C2  
+                     __ptext2 0770                       __ptext3 078E                       __ptext4 07A8  
+                     __ptext5 07F8                       __ptext6 0720                       __ptext7 074E  
+                     __ptext8 07D8               DAC_Start@adress 0004          end_of_initialization 07EA  
+   __end_of_DAC_SLAVE_ADDRESS 0602                    ?_I2C_Ready 0001                    ?_I2C_Start 0001  
+                  ?_I2C_Write 0001                    ?_DAC_Start 0002                    ?_DAC_Write 0002  
+           __size_of_I2C_Init 001E             __size_of_I2C_Stop 0016             __size_of_DAC_Init 000A  
+         start_initialization 07EA                   ??_I2C_Ready 0001                   ??_I2C_Start 0002  
+                 ??_I2C_Write 0001               DAC_Write@result 0004                   ??_DAC_Start 0003  
+                 ??_DAC_Write 0004                   __smallconst 0600                      _I2C_Init 0770  
+                    _I2C_Stop 07C2                      _DAC_Init 07F8  I2C_Start@slave_write_address 0002  
+                    __Hrparam 0000                      __Lrparam 0000                  __Lsmallconst 0600  
+           DAC_Start@variable 0005                 I2C_Write@data 0001                 __size_of_main 011C  
+            DAC_Start@command 0002                   _SSPCON2bits 000FC5  

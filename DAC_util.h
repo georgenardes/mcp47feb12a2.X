@@ -12,7 +12,17 @@ const unsigned char DAC_SLAVE_ADDRESS = 0x62;  // do datasheet
 
 void DAC_Init();
 
-char DAC_Start(unsigned char endereco);
+
+/**
+@Description: Inicialização
+
+ * Configura endereço de memoria do escravo a ser escrita com o comando
+ * adress:0x00 é para primeiro endereço de memoria
+ * adress:0x01 é para segundo endereço da memoria
+ * command 0x00 para escrita
+  
+ */
+char DAC_Start(unsigned char adress, unsigned char command);
 
 char DAC_Write(unsigned short data);
  

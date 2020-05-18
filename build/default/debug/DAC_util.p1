@@ -447,42 +447,50 @@ Version 4.0 HI-TECH Software Intermediate Code
 [e :UE 281 ]
 }
 "11
-[; ;DAC_util.c: 11: char DAC_Start(unsigned char endereco){
-[v _DAC_Start `(uc ~T0 @X0 1 ef1`uc ]
+[; ;DAC_util.c: 11: char DAC_Start(unsigned char adress, unsigned char command){
+[v _DAC_Start `(uc ~T0 @X0 1 ef2`uc`uc ]
 {
 [e :U _DAC_Start ]
-[v _endereco `uc ~T0 @X0 1 r1 ]
+[v _adress `uc ~T0 @X0 1 r1 ]
+[v _command `uc ~T0 @X0 1 r2 ]
 [f ]
 "12
-[; ;DAC_util.c: 12:     return I2C_Write(endereco);
-[e ) ( _I2C_Write (1 _endereco ]
-[e $UE 282  ]
+[; ;DAC_util.c: 12:     char variable = ' ';
+[v _variable `uc ~T0 @X0 1 a ]
+[e = _variable -> -> 32 `ui `uc ]
 "13
-[; ;DAC_util.c: 13: }
+[; ;DAC_util.c: 13:     variable = adress << 3 |command << 1 ;
+[e = _variable -> | << -> _adress `i -> 3 `i << -> _command `i -> 1 `i `uc ]
+"14
+[; ;DAC_util.c: 14:     return I2C_Write(variable);
+[e ) ( _I2C_Write (1 -> _variable `uc ]
+[e $UE 282  ]
+"15
+[; ;DAC_util.c: 15: }
 [e :UE 282 ]
 }
-"15
-[; ;DAC_util.c: 15: char DAC_Write(unsigned short data){
+"17
+[; ;DAC_util.c: 17: char DAC_Write(unsigned short data){
 [v _DAC_Write `(uc ~T0 @X0 1 ef1`us ]
 {
 [e :U _DAC_Write ]
 [v _data `us ~T0 @X0 1 r1 ]
 [f ]
-"16
-[; ;DAC_util.c: 16:     char result = 0;
+"18
+[; ;DAC_util.c: 18:     char result = 0;
 [v _result `uc ~T0 @X0 1 a ]
 [e = _result -> -> 0 `i `uc ]
-"17
-[; ;DAC_util.c: 17:     result = result | I2C_Write((unsigned char)(data>>8));
-[e = _result -> | -> _result `i -> ( _I2C_Write (1 -> >> -> _data `ui -> 8 `i `uc `i `uc ]
-"18
-[; ;DAC_util.c: 18:     result = result |I2C_Write(data);
-[e = _result -> | -> _result `i -> ( _I2C_Write (1 -> _data `uc `i `uc ]
 "19
-[; ;DAC_util.c: 19:     return result;
+[; ;DAC_util.c: 19:     result = result | I2C_Write((unsigned char)(data>>8));
+[e = _result -> | -> _result `i -> ( _I2C_Write (1 -> >> -> _data `ui -> 8 `i `uc `i `uc ]
+"20
+[; ;DAC_util.c: 20:     result = result |I2C_Write(data);
+[e = _result -> | -> _result `i -> ( _I2C_Write (1 -> _data `uc `i `uc ]
+"21
+[; ;DAC_util.c: 21:     return result;
 [e ) _result ]
 [e $UE 283  ]
-"20
-[; ;DAC_util.c: 20: }
+"22
+[; ;DAC_util.c: 22: }
 [e :UE 283 ]
 }

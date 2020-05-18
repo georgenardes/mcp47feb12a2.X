@@ -4551,8 +4551,8 @@ void I2C_Nack();
 const unsigned char DAC_SLAVE_ADDRESS = 0x62;
 
 void DAC_Init();
-
-char DAC_Start(unsigned char endereco);
+# 25 "./DAC_util.h"
+char DAC_Start(unsigned char adress, unsigned char command);
 
 char DAC_Write(unsigned short data);
 
@@ -4563,26 +4563,37 @@ char DAC_Read(char flag);
 void main(void) {
     I2C_Init();
 
-    unsigned short i = 0;
-    signed char j = 4;
+    unsigned short i = 0, k = 1023;
+    signed char j = 4, j2 = 4;
 
     while(1) {
         DAC_Init();
-        DAC_Start(0x00);
+        DAC_Start(0x00,0x00);
         DAC_Write(i);
         I2C_Stop();
+        _delay((unsigned long)((5)*(16000000/4000.0)));
 
         DAC_Init();
-        DAC_Start(0x01);
-        DAC_Write(i+2);
+        DAC_Start(0x01,0x00);
+        DAC_Write(k);
         I2C_Stop();
 
         i = i+j;
-
-        if(i < 4){
+        k = k + j2;
+        if(i < 4 ){
             j = 4;
             i = 0;
         }
+        if(k < 4){
+            j2 = 4;
+            k = 0;
+        }
+
+        if(k > 1023 ){
+            j2 = -4;
+            k = 1023;
+        }
+
 
         if(i > 1023){
             j = -4;
@@ -4590,9 +4601,9 @@ void main(void) {
         }
 
 
+        __nop();
 
-
-        _delay((unsigned long)((1000)*(16000000/4000.0)));
+        _delay((unsigned long)((5)*(16000000/4000.0)));
     }
 
     return;
