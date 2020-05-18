@@ -8,37 +8,41 @@
 #ifndef DAC_UTIL_H
 #define	DAC_UTIL_H
 
-const unsigned char DAC_SLAVE_ADDRESS = 0x62;  // do datasheet 
+const unsigned char DAC_SLAVE_ADDRESS = 0x62;  // endereço padrão do disposito
 
+/**
+@Description: Init
+ 
+ *  Inicia uma conexão com o Dispositivo endereçado por DAC_SLAVE_ADDRESS
+ 
+ */
 void DAC_Init();
 
 
 /**
-@Description: Inicialização
-
- * Configura endereço de memoria do escravo a ser escrita com o comando
- * adress:0x00 é para primeiro endereço de memoria
- * adress:0x01 é para segundo endereço da memoria
- * command 0x00 para escrita
-  
+@Description: Start
+ 
+ *  Envia endereço de memoria do escravo a ser escrita/lida   
+ 
  */
 char DAC_Start(unsigned char adress, unsigned char command);
 
 /*
-@Description: Inicialização
-
- * manda escrever um dado para a conversão
+@Description: Write
+ 
+ *  envia um valor digital para o conversor
   
  */
 char DAC_Write(unsigned short data);
 
-/*
-@Description: Inicialização
 
- * manda ler um dado da conversor
-  
+/**
+ @Descrição: Stop
+ 
+ *  Finaliza conexão com o conversor
+ 
  */
-char DAC_Read(char flag);
+char DAC_Stop();
 
 
 #endif	/* DAC_UTIL_H */

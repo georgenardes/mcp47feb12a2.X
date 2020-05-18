@@ -31,47 +31,47 @@ Define a frequência da comunicação I2C carregando o valor no registro SSPADD no 
 void I2C_Init();
 
 /*
-@Description: Inicialização
+@Description: Start
 
- * manda o pulso de start;
- * manda endereço do escravo 
+ * sinaliza start e envia endereço do escravo a ser estabelecido comunicação
   
  */
 char I2C_Start(char slave_write_address);
 
 /*
-@Description: Inicialização
+@Description: Ready
 
- * Espera operação ser completada
+ * Espera sinalização de interrupção ocorrer
   
  */
 void I2C_Ready();
 
 /*
-@Description: Inicialização
+@Description: Write
 
- * escreve o valor;
+ * Transmite o dado de 8 bit
   
  */
 char I2C_Write(unsigned char data);
 
 /*
-@Description: Inicialização
+@Description: Stop
 
- * serve para dar stop entre um valor mandado em um endereço e outro
+ * Encerra conexao
   
  */
 char I2C_Stop();
  
 /*
-@Description: Inicialização
+@Description: Read
 
- * protocolo de leitura
+ * para realizar a leitura
+ 
  */
 char I2C_Read(char flag);
  
 /*
-@Description: Inicialização
+@Description: Ack
 
  * retorna que recebeu valor 
   
@@ -79,7 +79,7 @@ char I2C_Read(char flag);
 void I2C_Ack();
  
 /*
-@Description: Inicialização
+@Description: Nack
 
  * retorna que deu erro
   
