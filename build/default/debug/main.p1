@@ -7,16 +7,16 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;./DAC_util.h: 13: void DAC_Init();
 [v _DAC_Init `(v ~T0 @X0 0 e? ]
 "15
-[; ;./DAC_util.h: 15: char DAC_Start();
-[v _DAC_Start `(uc ~T0 @X0 0 e? ]
+[; ;./DAC_util.h: 15: char DAC_Start(unsigned char endereco);
+[v _DAC_Start `(uc ~T0 @X0 0 ef1`uc ]
 "17
 [; ;./DAC_util.h: 17: char DAC_Write(unsigned short data);
 [v _DAC_Write `(uc ~T0 @X0 0 ef1`us ]
-"50 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18.h
-[v ___nop `(v ~T0 @X0 0 ef ]
-[p i ___nop ]
+"39 ./i2c_util.h
+[; ;./i2c_util.h: 39: char I2C_Stop();
+[v _I2C_Stop `(uc ~T0 @X0 0 e? ]
 [v F2518 `(v ~T0 @X0 1 tf1`ul ]
-"187
+"187 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18.h
 [v __delay `JF2518 ~T0 @X0 0 e ]
 [p i __delay ]
 "54 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f4520.h
@@ -452,73 +452,85 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 15:     I2C_Init();
 [e ( _I2C_Init ..  ]
 "17
-[; ;main.c: 17:     DAC_Init();
-[e ( _DAC_Init ..  ]
-"19
-[; ;main.c: 19:     unsigned short i = 0;
+[; ;main.c: 17:     unsigned short i = 0;
 [v _i `us ~T0 @X0 1 a ]
 [e = _i -> -> 0 `i `us ]
-"20
-[; ;main.c: 20:     signed char j = 4;
+"18
+[; ;main.c: 18:     signed char j = 4;
 [v _j `c ~T0 @X0 1 a ]
 [e = _j -> -> 4 `i `c ]
-"22
-[; ;main.c: 22:     while(1) {
+"20
+[; ;main.c: 20:     while(1) {
 [e :U 283 ]
 {
+"21
+[; ;main.c: 21:         DAC_Init();
+[e ( _DAC_Init ..  ]
+"22
+[; ;main.c: 22:         DAC_Start(0x00);
+[e ( _DAC_Start (1 -> -> 0 `i `uc ]
 "23
-[; ;main.c: 23:         DAC_Start();
-[e ( _DAC_Start ..  ]
-"24
-[; ;main.c: 24:         DAC_Write(i);
+[; ;main.c: 23:         DAC_Write(i);
 [e ( _DAC_Write (1 _i ]
+"24
+[; ;main.c: 24:         I2C_Stop();
+[e ( _I2C_Stop ..  ]
 "26
-[; ;main.c: 26:         i = i+j;
-[e = _i -> + -> _i `ui -> -> _j `i `ui `us ]
+[; ;main.c: 26:         DAC_Init();
+[e ( _DAC_Init ..  ]
+"27
+[; ;main.c: 27:         DAC_Start(0x01);
+[e ( _DAC_Start (1 -> -> 1 `i `uc ]
 "28
-[; ;main.c: 28:         if(i < 4){
+[; ;main.c: 28:         DAC_Write(i+2);
+[e ( _DAC_Write (1 -> + -> _i `ui -> -> 2 `i `ui `us ]
+"29
+[; ;main.c: 29:         I2C_Stop();
+[e ( _I2C_Stop ..  ]
+"31
+[; ;main.c: 31:         i = i+j;
+[e = _i -> + -> _i `ui -> -> _j `i `ui `us ]
+"33
+[; ;main.c: 33:         if(i < 4){
 [e $ ! < -> _i `ui -> -> 4 `i `ui 285  ]
 {
-"29
-[; ;main.c: 29:             j = 4;
-[e = _j -> -> 4 `i `c ]
-"30
-[; ;main.c: 30:             i = 0;
-[e = _i -> -> 0 `i `us ]
-"31
-[; ;main.c: 31:         }
-}
-[e :U 285 ]
-"33
-[; ;main.c: 33:         if(i > 1023){
-[e $ ! > -> _i `ui -> -> 1023 `i `ui 286  ]
-{
 "34
-[; ;main.c: 34:             j = -4;
-[e = _j -> -U -> 4 `i `c ]
+[; ;main.c: 34:             j = 4;
+[e = _j -> -> 4 `i `c ]
 "35
-[; ;main.c: 35:             i = 1023;
-[e = _i -> -> 1023 `i `us ]
+[; ;main.c: 35:             i = 0;
+[e = _i -> -> 0 `i `us ]
 "36
 [; ;main.c: 36:         }
 }
-[e :U 286 ]
+[e :U 285 ]
+"38
+[; ;main.c: 38:         if(i > 1023){
+[e $ ! > -> _i `ui -> -> 1023 `i `ui 286  ]
+{
 "39
-[; ;main.c: 39:         __nop();
-[e ( ___nop ..  ]
+[; ;main.c: 39:             j = -4;
+[e = _j -> -U -> 4 `i `c ]
+"40
+[; ;main.c: 40:             i = 1023;
+[e = _i -> -> 1023 `i `us ]
 "41
-[; ;main.c: 41:         _delay((unsigned long)((2)*(16000000/4000.0)));
-[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
-"42
-[; ;main.c: 42:     }
+[; ;main.c: 41:         }
+}
+[e :U 286 ]
+"46
+[; ;main.c: 46:         _delay((unsigned long)((1000)*(16000000/4000.0)));
+[e ( __delay (1 -> * -> -> 1000 `i `d / -> -> 16000000 `l `d .4000.0 `ul ]
+"47
+[; ;main.c: 47:     }
 }
 [e :U 282 ]
 [e $U 283  ]
 [e :U 284 ]
-"44
-[; ;main.c: 44:     return;
+"49
+[; ;main.c: 49:     return;
 [e $UE 281  ]
-"45
-[; ;main.c: 45: }
+"50
+[; ;main.c: 50: }
 [e :UE 281 ]
 }

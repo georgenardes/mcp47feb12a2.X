@@ -13,7 +13,7 @@ const unsigned char DAC_SLAVE_ADDRESS = 0x62;
 
 void DAC_Init();
 
-char DAC_Start();
+char DAC_Start(unsigned char endereco);
 
 char DAC_Write(unsigned short data);
 
@@ -4559,9 +4559,8 @@ void DAC_Init(){
     I2C_Start(DAC_SLAVE_ADDRESS<<1);
 }
 
-char DAC_Start(){
-
-    return I2C_Write(0x00);
+char DAC_Start(unsigned char endereco){
+    return I2C_Write(endereco);
 }
 
 char DAC_Write(unsigned short data){

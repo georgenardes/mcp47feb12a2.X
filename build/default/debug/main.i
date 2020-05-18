@@ -4552,7 +4552,7 @@ const unsigned char DAC_SLAVE_ADDRESS = 0x62;
 
 void DAC_Init();
 
-char DAC_Start();
+char DAC_Start(unsigned char endereco);
 
 char DAC_Write(unsigned short data);
 
@@ -4563,14 +4563,19 @@ char DAC_Read(char flag);
 void main(void) {
     I2C_Init();
 
-    DAC_Init();
-
     unsigned short i = 0;
     signed char j = 4;
 
     while(1) {
-        DAC_Start();
+        DAC_Init();
+        DAC_Start(0x00);
         DAC_Write(i);
+        I2C_Stop();
+
+        DAC_Init();
+        DAC_Start(0x01);
+        DAC_Write(i+2);
+        I2C_Stop();
 
         i = i+j;
 
@@ -4585,9 +4590,9 @@ void main(void) {
         }
 
 
-        __nop();
 
-        _delay((unsigned long)((2)*(16000000/4000.0)));
+
+        _delay((unsigned long)((1000)*(16000000/4000.0)));
     }
 
     return;

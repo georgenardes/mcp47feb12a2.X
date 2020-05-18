@@ -12,7 +12,7 @@ const unsigned char DAC_SLAVE_ADDRESS = 0x62;  // do datasheet
 
 void DAC_Init();
 
-char DAC_Start();
+char DAC_Start(unsigned char endereco);
 
 char DAC_Write(unsigned short data);
  

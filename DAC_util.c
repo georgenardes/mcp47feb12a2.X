@@ -8,8 +8,8 @@ void DAC_Init(){
     I2C_Start(DAC_SLAVE_ADDRESS<<1);    //envia os 7 bit menos sig        
 }
 
-char DAC_Start(){        
-    return I2C_Write(0x00);
+char DAC_Start(unsigned char endereco){        
+    return I2C_Write(endereco);
 }
 
 char DAC_Write(unsigned short data){

@@ -1,5 +1,5 @@
 __S0 30000E 0 ABS 0
-__S1 9 0 ABS 0
+__S1 A 0 ABS 0
 __S2 0 0 ABS 0
 _PEN 7E2A 0 ABS 0
 __Hintentry 0 0 ABS 0
@@ -20,8 +20,8 @@ _ACKDT 7E2D 0 ABS 0
 __end_of_DAC_SLAVE_ADDRESS 602 0 SMALLCONST 0
 __Hconfig 30000E 0 CONFIG 0
 __Lconfig 300000 0 CONFIG 0
-main@i 7 0 COMRAM 1
-main@j 6 0 COMRAM 1
+main@i 8 0 COMRAM 1
+main@j 7 0 COMRAM 1
 __Hbigram 0 0 ABS 0
 __Lbigram 0 0 ABS 0
 __Hrparam 0 0 COMRAM 1
@@ -37,9 +37,10 @@ __Lbss 0 0 RAM 1
 ___param_bank 0 0 ABS 0
 __Hnvrram 0 0 COMRAM 1
 __Lnvrram 0 0 COMRAM 1
-_I2C_Init 6E0 0 CODE 0
-_DAC_Init 738 0 CODE 0
-__end_of_DAC_Start 74A 0 CODE 0
+_I2C_Init 70A 0 CODE 0
+_DAC_Init 782 0 CODE 0
+__end_of_DAC_Start 782 0 CODE 0
+_I2C_Stop 742 0 CODE 0
 _TRISC3 7CA3 0 ABS 0
 _ADCON1 FC1 0 ABS 0
 _TRISC4 7CA4 0 ABS 0
@@ -72,8 +73,8 @@ __Habs1 0 0 ABS 0
 __Labs1 0 0 ABS 0
 __HnvFARRAM 0 0 FARRAM 0
 __LnvFARRAM 0 0 FARRAM 0
-_I2C_Write 6BE 0 CODE 0
-_DAC_Write 6FE 0 CODE 0
+_I2C_Write 6E8 0 CODE 0
+_DAC_Write 728 0 CODE 0
 __Hdata 0 0 ABS 0
 __Ldata 0 0 ABS 0
 stackhi 5FF 0 ABS 0
@@ -88,22 +89,23 @@ __Linit 0 0 CODE 0
 __Hintcodelo 0 0 CODE 0
 __Lintcodelo 0 0 CODE 0
 __Hrbss 0 0 COMRAM 1
-__end_of_main 690 0 CODE 0
+__end_of_main 6BA 0 CODE 0
 __Lrbss 0 0 COMRAM 1
 __Htext 0 0 ABS 0
 __Ltext 0 0 ABS 0
 __CFG_OSC$HS 0 0 ABS 0
-end_of_initialization 72A 0 CODE 0
+end_of_initialization 76A 0 CODE 0
+__size_of_I2C_Stop 0 0 ABS 0
 __size_of_I2C_Write 0 0 ABS 0
 __size_of_I2C_Start 0 0 ABS 0
 _SSPCON1 FC6 0 ABS 0
 _SSPCON2 FC5 0 ABS 0
-_I2C_Ready 718 0 CODE 0
-_I2C_Start 690 0 CODE 0
-_DAC_Start 742 0 CODE 0
+_I2C_Ready 758 0 CODE 0
+_I2C_Start 6BA 0 CODE 0
+_DAC_Start 778 0 CODE 0
 __Hibigdata 0 0 CODE 0
 __Libigdata 0 0 CODE 0
-__end_of_I2C_Write 6E0 0 CODE 0
+__end_of_I2C_Write 70A 0 CODE 0
 __Hifardata 0 0 CODE 0
 __Lifardata 0 0 CODE 0
 __Hbank0 0 0 ABS 0
@@ -130,28 +132,33 @@ __ptext0 604 0 CODE 0
 _SSPCON2bits FC5 0 ABS 0
 __Htext2 0 0 ABS 0
 __Ltext2 0 0 ABS 0
-__ptext1 6E0 0 CODE 0
+__ptext1 742 0 CODE 0
 __Htext3 0 0 ABS 0
 __Ltext3 0 0 ABS 0
-__ptext2 6FE 0 CODE 0
+__ptext2 70A 0 CODE 0
 __Htext4 0 0 ABS 0
 __Ltext4 0 0 ABS 0
-__ptext3 742 0 CODE 0
+__ptext3 728 0 CODE 0
 __Htext5 0 0 ABS 0
 __Ltext5 0 0 ABS 0
-__ptext4 738 0 CODE 0
+__ptext4 778 0 CODE 0
 __Htext6 0 0 ABS 0
 __Ltext6 0 0 ABS 0
-__ptext5 690 0 CODE 0
+__ptext5 782 0 CODE 0
 __Htext7 0 0 ABS 0
 __Ltext7 0 0 ABS 0
-__ptext6 6BE 0 CODE 0
-__ptext7 718 0 CODE 0
+__ptext6 6BA 0 CODE 0
+__Htext8 0 0 ABS 0
+__Ltext8 0 0 ABS 0
+__ptext7 6E8 0 CODE 0
+__ptext8 758 0 CODE 0
+DAC_Start@endereco 2 0 COMRAM 1
 __Hclrtext 0 0 ABS 0
 __Lclrtext 0 0 ABS 0
-__end_of__initialization 72A 0 CODE 0
+__end_of__initialization 76A 0 CODE 0
 ___rparam_used 1 0 ABS 0
 _SSPSTATbits FC7 0 ABS 0
+__end_of_I2C_Stop 758 0 CODE 0
 __Hidata 0 0 CODE 0
 __Lidata 0 0 CODE 0
 __Hrdata 0 0 COMRAM 1
@@ -160,7 +167,7 @@ __Hidloc 200008 0 IDLOC 0
 __Lidloc 200000 0 IDLOC 0
 __Hstack 0 0 STACK 2
 __Lstack 0 0 STACK 2
-__end_of_I2C_Ready 72A 0 CODE 0
+__end_of_I2C_Ready 76A 0 CODE 0
 __Hparam 0 0 COMRAM 1
 __Lparam 0 0 COMRAM 1
 __Hspace_0 30000E 0 ABS 0
@@ -168,7 +175,7 @@ __HcstackCOMRAM 0 0 ABS 0
 __Lspace_0 0 0 ABS 0
 __LcstackCOMRAM 0 0 ABS 0
 __pcstackCOMRAM 1 0 COMRAM 1
-__Hspace_1 9 0 ABS 0
+__Hspace_1 A 0 ABS 0
 __Lspace_1 0 0 ABS 0
 __Hsmallconst 604 0 SMALLCONST 0
 DAC_Write@result 4 0 COMRAM 1
@@ -180,14 +187,14 @@ __Hnvbit 0 0 COMRAM 1
 __Lnvbit 0 0 COMRAM 1
 __Hcinit 0 0 ABS 0
 __Lcinit 0 0 ABS 0
-__pcinit 72A 0 CODE 0
+__pcinit 76A 0 CODE 0
 __ramtop 600 0 RAM 0
 __mediumconst 0 0 MEDIUMCONST 0
 __size_of_main 0 0 ABS 0
 __Hconst 0 0 CONST 0
 __Lconst 0 0 CONST 0
-__end_of_I2C_Init 6FE 0 CODE 0
-__end_of_DAC_Write 718 0 CODE 0
+__end_of_I2C_Init 728 0 CODE 0
+__end_of_DAC_Write 742 0 CODE 0
 __size_of_I2C_Ready 0 0 ABS 0
 ___inthi_sp 0 0 STACK 2
 ___intlo_sp 0 0 STACK 2
@@ -206,11 +213,11 @@ intlevel2 0 0 CODE 0
 intlevel3 0 0 CODE 0
 __size_of_DAC_Write 0 0 ABS 0
 __size_of_DAC_Start 0 0 ABS 0
-__end_of_DAC_Init 742 0 CODE 0
-__end_of_I2C_Start 6BE 0 CODE 0
-start_initialization 72A 0 CODE 0
+__end_of_DAC_Init 78C 0 CODE 0
+__end_of_I2C_Start 6E8 0 CODE 0
+start_initialization 76A 0 CODE 0
 __CFG_MCLRE$ON 0 0 ABS 0
-__initialization 72A 0 CODE 0
+__initialization 76A 0 CODE 0
 __activetblptr 1 0 ABS 0
 __CFG_WDT$OFF 0 0 ABS 0
 %segments
@@ -218,84 +225,96 @@ reset_vec 0 3 CODE 0 0
 smallconst 600 603 SMALLCONST 600 0
 config 300000 30000D CONFIG 300000 0
 idloc 200000 200007 IDLOC 200000 0
-cstackCOMRAM 1 8 COMRAM 1 1
-text0 604 749 CODE 604 0
+cstackCOMRAM 1 9 COMRAM 1 1
+text0 604 78B CODE 604 0
 %locals
 dist/default/debug\mcp47feb12a2.X.debug.o
 C:\Program Files (x86)\Microchip\xc8\v2.10\pic\include\pic18f4520.h
-C:\Users\George\AppData\Local\Temp\scgs.s
-1003 72A 0 CODE 0
-1005 72A 0 CODE 0
-1008 72A 0 CODE 0
-1014 72A 0 CODE 0
-1017 72A 0 CODE 0
-1018 72C 0 CODE 0
-1019 72E 0 CODE 0
-1020 730 0 CODE 0
-1021 732 0 CODE 0
-1022 734 0 CODE 0
+C:\Users\Diogo\AppData\Local\Temp\s1q0.s
+1004 76A 0 CODE 0
+1006 76A 0 CODE 0
+1009 76A 0 CODE 0
+1015 76A 0 CODE 0
+1018 76A 0 CODE 0
+1019 76C 0 CODE 0
+1020 76E 0 CODE 0
+1021 770 0 CODE 0
+1022 772 0 CODE 0
+1023 774 0 CODE 0
 main.c
 14 604 0 CODE 0
 15 604 0 CODE 0
 17 608 0 CODE 0
-19 60C 0 CODE 0
+18 610 0 CODE 0
 20 614 0 CODE 0
-23 618 0 CODE 0
-24 61C 0 CODE 0
-26 628 0 CODE 0
+21 614 0 CODE 0
+22 618 0 CODE 0
+23 61E 0 CODE 0
+24 62A 0 CODE 0
+26 62E 0 CODE 0
+27 632 0 CODE 0
 28 638 0 CODE 0
-29 64E 0 CODE 0
-30 652 0 CODE 0
-33 65A 0 CODE 0
-34 66C 0 CODE 0
-35 670 0 CODE 0
-39 676 0 CODE 0
-41 678 0 CODE 0
+29 648 0 CODE 0
+31 64C 0 CODE 0
+33 65C 0 CODE 0
+34 672 0 CODE 0
+35 676 0 CODE 0
+38 67E 0 CODE 0
+39 690 0 CODE 0
+40 694 0 CODE 0
+46 69A 0 CODE 0
 i2c_util.c
-3 6E0 0 CODE 0
-4 6E0 0 CODE 0
-7 6E4 0 CODE 0
-8 6E6 0 CODE 0
-11 6E8 0 CODE 0
-14 6EC 0 CODE 0
-15 6F0 0 CODE 0
-18 6F4 0 CODE 0
-21 6F8 0 CODE 0
-22 6FA 0 CODE 0
-23 6FC 0 CODE 0
+65 742 0 CODE 0
+67 742 0 CODE 0
+70 744 0 CODE 0
+73 752 0 CODE 0
+76 754 0 CODE 0
+78 756 0 CODE 0
+i2c_util.c
+3 70A 0 CODE 0
+4 70A 0 CODE 0
+7 70E 0 CODE 0
+8 710 0 CODE 0
+11 712 0 CODE 0
+14 716 0 CODE 0
+15 71A 0 CODE 0
+18 71E 0 CODE 0
+21 722 0 CODE 0
+22 724 0 CODE 0
+23 726 0 CODE 0
 DAC_util.c
-16 6FE 0 CODE 0
-17 6FE 0 CODE 0
-18 702 0 CODE 0
-19 70C 0 CODE 0
-21 716 0 CODE 0
+15 728 0 CODE 0
+16 728 0 CODE 0
+17 72C 0 CODE 0
+18 736 0 CODE 0
+20 740 0 CODE 0
 DAC_util.c
-11 742 0 CODE 0
-13 742 0 CODE 0
-14 748 0 CODE 0
+11 778 0 CODE 0
+12 77A 0 CODE 0
+13 780 0 CODE 0
 DAC_util.c
-4 738 0 CODE 0
-6 738 0 CODE 0
-8 73A 0 CODE 0
-9 740 0 CODE 0
+4 782 0 CODE 0
+6 782 0 CODE 0
+8 784 0 CODE 0
+9 78A 0 CODE 0
 i2c_util.c
-25 690 0 CODE 0
-27 692 0 CODE 0
-30 694 0 CODE 0
-33 6A2 0 CODE 0
-36 6A4 0 CODE 0
-40 6B6 0 CODE 0
-41 6BC 0 CODE 0
+25 6BA 0 CODE 0
+27 6BC 0 CODE 0
+30 6BE 0 CODE 0
+33 6CC 0 CODE 0
+36 6CE 0 CODE 0
+40 6E0 0 CODE 0
+41 6E6 0 CODE 0
 i2c_util.c
-51 6BE 0 CODE 0
-53 6C0 0 CODE 0
-56 6C4 0 CODE 0
-59 6C8 0 CODE 0
-60 6D6 0 CODE 0
-62 6DC 0 CODE 0
-63 6DE 0 CODE 0
+51 6E8 0 CODE 0
+53 6EA 0 CODE 0
+56 6EE 0 CODE 0
+59 6F2 0 CODE 0
+60 700 0 CODE 0
+62 706 0 CODE 0
+63 708 0 CODE 0
 i2c_util.c
-43 718 0 CODE 0
-45 718 0 CODE 0
-48 726 0 CODE 0
-49 728 0 CODE 0
+43 758 0 CODE 0
+45 758 0 CODE 0
+48 766 0 CODE 0
+49 768 0 CODE 0
